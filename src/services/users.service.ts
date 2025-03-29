@@ -12,11 +12,10 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-	// private apiUrl = 'http://localhost:9090/api/users'; // Spring Boot API
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('users');
+    return this.http.get<User[]>('api/users');
   }
 }
