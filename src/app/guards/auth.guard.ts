@@ -6,7 +6,7 @@ export const AuthGuard: CanActivateFn = () => {
   const isAuthenticated = !!localStorage.getItem('token'); // Beispiel
 
   if (!isAuthenticated) {
-    router.navigate(['/login']);
+    router.navigate(['/home']);
   }
 
   return isAuthenticated;

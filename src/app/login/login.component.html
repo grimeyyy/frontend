@@ -1,14 +1,15 @@
-<h2>Login</h2>
 <form [formGroup]="loginForm">
-  <label>
-    Username:
-    <input formControlName="username">
+  <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+  <label for="emailLogin" class="form-label">
+    {{ 'LOGIN.EMAIL' | translate }}:
+    <input formControlName="email" type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
   </label>
   <label>
-    Last Name:
+    {{ 'LOGIN.PASSWORD' | translate }}:
     <input type="password" formControlName="password">
   </label>
-  <button (click)="login()" [disabled]="loginForm.invalid">Submit</button>
+  <button (click)="login()" class="btn btn-primary" [disabled]="loginForm.invalid">{{ 'LOGIN.SUBMIT' | translate }}</button>
+  <button (click)="closeModal()" class="btn btn-danger">{{ 'GENERAL.CANCEL' | translate }}</button>
 </form>
 
-<p *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</p>
+<ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
