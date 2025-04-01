@@ -1,15 +1,32 @@
-<form [formGroup]="loginForm">
-  <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
-  <label for="emailLogin" class="form-label">
-    {{ 'LOGIN.EMAIL' | translate }}:
-    <input formControlName="email" type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
-  </label>
-  <label>
-    {{ 'LOGIN.PASSWORD' | translate }}:
-    <input type="password" formControlName="password">
-  </label>
-  <button (click)="login()" class="btn btn-primary" [disabled]="loginForm.invalid">{{ 'LOGIN.SUBMIT' | translate }}</button>
-  <button (click)="closeModal()" class="btn btn-danger">{{ 'GENERAL.CANCEL' | translate }}</button>
-</form>
+<button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}
+</button>
 
-<ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="loginForm">
+      <div class="mb-3">
+        <label for="emailLogin" class="form-label">
+          {{ 'LOGIN_SIGNUP.EMAIL' | translate }}:
+          <input formControlName="email" type="email" class="form-control form-control-lg" id="emailLogin"
+                 aria-describedby="emailHelp">
+        </label>
+        <label for="passwordLogin" class="form-label">
+          {{ 'LOGIN_SIGNUP.PASSWORD' | translate }}:
+          <input type="password" class="form-control form-control-lg" formControlName="password" id="passwordLogin"
+                 aria-describedby="passwordHelp">
+        </label>
+      </div>
+    </form>
+    <ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
+    <div class="modal-footer">
+      <button type="submit" (click)="onSubmit()" class="btn btn-primary"
+              [disabled]="loginForm.invalid">{{ 'GENERAL.SUBMIT' | translate }}
+      </button>
+      <button type="button" (click)="closeModal()" class="btn btn-danger">{{ 'GENERAL.CANCEL' | translate }}</button>
+    </div>
+  </div>
+</ng-template>

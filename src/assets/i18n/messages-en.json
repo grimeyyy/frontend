@@ -1,11 +1,17 @@
 {
+  "GENERAL": {
+    "SUBMIT": "Submit",
+    "CANCEL": "Cancel"
+  },
   "HOME": {
     "WELCOME_MSG": "Welcome to our platform"
   },
-  "LOGIN": {
-    "TITLE": "Login",
+  "LOGIN_SIGNUP": {
+    "LOGIN": "Login",
+    "SIGNUP": "Sign up",
     "EMAIL": "Email",
     "PASSWORD": "Password",
-    "SUBMIT": "Submit"
+    "WRONG_CREDENTIALS": "Wrong credentials!"
+
   }
 }

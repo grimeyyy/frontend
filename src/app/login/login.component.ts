@@ -1,10 +1,11 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
 import {NgbAlert, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,31 +15,34 @@ import {NgbAlert, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  private modalService = inject(NgbModal);
   public errorMessage = '';
+  public loginForm: FormGroup;
+  private modalService = inject(NgbModal);
 
-  constructor(private http: HttpClient, private router: Router) {
-
+  constructor(private http: HttpClient, private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
+    this.loginForm = this.formBuilder.nonNullable.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+    });
   }
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-  });
+  openModal(content: TemplateRef<any>) {
+    this.modalService.open(content, { centered: true });
+  }
 
-  login() {
-    this.http.post<{ token: string }>('/api/auth/login', this.loginForm.value)
-      .subscribe({
-        next: (response) => {
-          localStorage.setItem('token', response.token);
-          this.router.navigate(['/dashboard']);
-        },
-        error: () => this.errorMessage = 'LOGIN.WRONG_CREDENTIALS',
-      });
+
+  onSubmit() {
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => this.errorMessage = 'LOGIN.WRONG_CREDENTIALS',
+    });
     this.closeModal();
   }
 
   closeModal() {
-
+    this.modalService.dismissAll()
   }
 }

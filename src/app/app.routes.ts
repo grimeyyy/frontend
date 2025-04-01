@@ -8,11 +8,10 @@ export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), children: [
-      { path: 'login', component: ModalWrapperComponent, data: {component: LoginComponent} },
-      { path: 'sign-up', component: ModalWrapperComponent, data: {component: SignUpComponent}},
+      {path: 'login', component: ModalWrapperComponent, data: {component: LoginComponent}},
+      {path: 'sign-up', component: ModalWrapperComponent, data: {component: SignUpComponent}},
     ]
   },
-
   {
     path: 'dashboard',
     loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
