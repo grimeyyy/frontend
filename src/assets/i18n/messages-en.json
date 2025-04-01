@@ -1,0 +1,11 @@
+{
+  "HOME": {
+    "WELCOME_MSG": "Welcome to our platform"
+  },
+  "LOGIN": {
+    "TITLE": "Login",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SUBMIT": "Submit"
+  }
+}
