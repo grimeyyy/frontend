@@ -7,7 +7,7 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="emailLogin" class="form-label">
           {{ 'LOGIN_SIGNUP.EMAIL' | translate }}:
@@ -22,6 +22,9 @@
       </div>
     </form>
     <ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
+
+    <button class="btn btn-link" *ngIf="errorMessage === 'ERROR.VERIFY_EMAIL_BEFORE_LOGIN'"
+         (click)="resendEmail()">{{ 'LOGIN_SIGNUP.RESEND_EMAIL' | translate }}</button>
     <div class="modal-footer">
       <button type="submit" (click)="onSubmit()" class="btn btn-primary"
               [disabled]="loginForm.invalid">{{ 'GENERAL.SUBMIT' | translate }}

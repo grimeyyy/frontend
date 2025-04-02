@@ -13,7 +13,8 @@ interface AuthRequest {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   signUp(signUpData: AuthRequest): Observable<any> {
     return this.http.post('api/auth/sign-up', signUpData);
@@ -26,5 +27,11 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/home']);
+  }
+
+  resendConfirmation(email: string) {
+     this.http.post('/api/auth/resend-confirmation?email=' + email,  { }).subscribe(() => {
+      console.log()
+    })
   }
 }

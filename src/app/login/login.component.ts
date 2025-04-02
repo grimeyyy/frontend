@@ -27,7 +27,7 @@ export class LoginComponent {
   }
 
   openModal(content: TemplateRef<any>) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, {centered: true});
   }
 
 
@@ -36,13 +36,19 @@ export class LoginComponent {
       next: (response) => {
         localStorage.setItem('token', response.token);
         this.router.navigate(['/dashboard']);
+        this.closeModal();
       },
-      error: () => this.errorMessage = 'LOGIN.WRONG_CREDENTIALS',
+      error: err => this.errorMessage = err.error.message,
     });
-    this.closeModal();
+
   }
 
   closeModal() {
     this.modalService.dismissAll()
+  }
+
+  resendEmail() {
+    let email = this.loginForm.value.email;
+    this.authService.resendConfirmation(email);
   }
 }

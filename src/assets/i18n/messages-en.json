@@ -10,8 +10,10 @@
     "LOGIN": "Login",
     "SIGNUP": "Sign up",
     "EMAIL": "Email",
-    "PASSWORD": "Password",
-    "WRONG_CREDENTIALS": "Wrong credentials!"
-
+    "PASSWORD": "Password"
+  },
+  "ERROR": {
+    "VERIFY_EMAIL_BEFORE_LOGIN": "Please, verify your email before logging in!",
+    "INVALID_CREDENTIALS": "Invalid credentials!"
   }
 }
