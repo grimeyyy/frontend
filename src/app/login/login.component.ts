@@ -49,6 +49,18 @@ export class LoginComponent {
 
   resendEmail() {
     let email = this.loginForm.value.email;
-    this.authService.resendConfirmation(email);
+    this.authService.resendConfirmationEmail(email);
+  }
+
+  onForgotPassword() {
+    const email = this.loginForm.value.email;
+    this.authService.forgotPassword(email).subscribe({
+      next: () => {
+        alert('Password reset email sent!');
+      },
+      error: (err) => {
+        alert('Error sending reset email!');
+      }
+    });
   }
 }

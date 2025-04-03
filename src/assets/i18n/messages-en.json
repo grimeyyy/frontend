@@ -10,7 +10,8 @@
     "LOGIN": "Login",
     "SIGNUP": "Sign up",
     "EMAIL": "Email",
-    "PASSWORD": "Password"
+    "PASSWORD": "Password",
+    "FORGOT_PASSWORD": "Forgot password?"
   },
   "ERROR": {
     "VERIFY_EMAIL_BEFORE_LOGIN": "Please, verify your email before logging in!",

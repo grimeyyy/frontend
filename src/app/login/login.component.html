@@ -23,8 +23,12 @@
     </form>
     <ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
 
-    <button class="btn btn-link" *ngIf="errorMessage === 'ERROR.VERIFY_EMAIL_BEFORE_LOGIN'"
-         (click)="resendEmail()">{{ 'LOGIN_SIGNUP.RESEND_EMAIL' | translate }}</button>
+    <button type="button" class="btn btn-link" *ngIf="errorMessage === 'ERROR.VERIFY_EMAIL_BEFORE_LOGIN'"
+            (click)="resendEmail()">{{ 'LOGIN_SIGNUP.RESEND_EMAIL' | translate }}
+    </button>
+    <button type="button" class="btn btn-link"
+            (click)="onForgotPassword()">{{ 'LOGIN_SIGNUP.FORGOT_PASSWORD' | translate }}
+    </button>
     <div class="modal-footer">
       <button type="submit" (click)="onSubmit()" class="btn btn-primary"
               [disabled]="loginForm.invalid">{{ 'GENERAL.SUBMIT' | translate }}

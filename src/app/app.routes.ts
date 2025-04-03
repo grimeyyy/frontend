@@ -3,13 +3,14 @@ import {AuthGuard} from './guards/auth.guard';
 import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), children: [
-      {path: 'login', component: ModalWrapperComponent, data: {component: LoginComponent}},
-      {path: 'sign-up', component: ModalWrapperComponent, data: {component: SignUpComponent}},
+      // {path: 'login', component: ModalWrapperComponent, data: {component: LoginComponent}},
+      // {path: 'sign-up', component: ModalWrapperComponent, data: {component: SignUpComponent}},
     ]
   },
   {
@@ -17,5 +18,6 @@ export const routes: Routes = [
     loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [AuthGuard]
   },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {path: '**', redirectTo: 'home'} // 404-Fallback
 ];

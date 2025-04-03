@@ -29,9 +29,15 @@ export class AuthService {
     this.router.navigate(['/home']);
   }
 
-  resendConfirmation(email: string) {
-     this.http.post('/api/auth/resend-confirmation?email=' + email,  { }).subscribe(() => {
-      console.log()
-    })
+  resendConfirmationEmail(email: string) {
+     return this.http.post('/api/auth/resend-confirmation?email=' + email,  { });
+  }
+
+  forgotPassword(email: string) {
+    return this.http.post('/api/auth/forgot-password', { email });
+  }
+
+  resetPassword(token: string, newPassword: string) {
+    return this.http.post('/api/auth/reset-password', { token, newPassword });
   }
 }
