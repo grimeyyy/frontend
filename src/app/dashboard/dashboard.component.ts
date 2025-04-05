@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ import {CommonModule} from '@angular/common';
 export class DashboardComponent {
   userId: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) {
     this.route.queryParamMap.subscribe(params => {
       this.userId = params.get('id');
     });
@@ -20,7 +21,6 @@ export class DashboardComponent {
 
 
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }

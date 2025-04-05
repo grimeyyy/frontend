@@ -1,10 +1,10 @@
-import {Component, inject, TemplateRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
-import {NgbAlert, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../services/auth.service';
 
 @Component({
@@ -17,7 +17,8 @@ import {AuthService} from '../services/auth.service';
 export class LoginComponent {
   public errorMessage = '';
   public loginForm: FormGroup;
-  private modalService = inject(NgbModal);
+
+  public loggedIn = false;
 
   constructor(private http: HttpClient, private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.loginForm = this.formBuilder.nonNullable.group({
@@ -26,26 +27,18 @@ export class LoginComponent {
     });
   }
 
-  openModal(content: TemplateRef<any>) {
-    this.modalService.open(content, {centered: true});
-  }
-
-
   onSubmit() {
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
         this.router.navigate(['/dashboard']);
-        this.closeModal();
+        this.loggedIn = true;
       },
       error: err => this.errorMessage = err.error.message,
     });
 
   }
 
-  closeModal() {
-    this.modalService.dismissAll()
-  }
 
   resendEmail() {
     let email = this.loginForm.value.email;

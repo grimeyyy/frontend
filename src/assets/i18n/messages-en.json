@@ -11,7 +11,11 @@
     "SIGNUP": "Sign up",
     "EMAIL": "Email",
     "PASSWORD": "Password",
-    "FORGOT_PASSWORD": "Forgot password?"
+    "FORGOT_PASSWORD": "Forgot password?",
+    "RESET_PASSWORD": "Reset password"
+  },
+  "VALIDATION": {
+    "PASSWORD_MISMATCH": "Passwords dont match!"
   },
   "ERROR": {
     "VERIFY_EMAIL_BEFORE_LOGIN": "Please, verify your email before logging in!",

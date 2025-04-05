@@ -1,0 +1,16 @@
+.btn-theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: inherit;
+  transition: transform 0.3s ease, color 0.2s ease;
+
+  &:hover {
+    transform: rotate(25deg);
+    color: var(--bs-primary);
+  }
+
+  i {
+    pointer-events: none;
+  }
+}

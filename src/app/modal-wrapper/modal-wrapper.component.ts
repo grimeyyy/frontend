@@ -9,7 +9,7 @@ import {Location} from '@angular/common';
  */
 @Component({
   selector: 'app-modal-wrapper',
-  templateUrl: './modal-wrapper.component.html',
+  template: '',
   standalone: true,
 })
 export class ModalWrapperComponent implements OnDestroy {
@@ -27,6 +27,7 @@ export class ModalWrapperComponent implements OnDestroy {
 
     zip(routeParams, routeData)
       .pipe(takeUntil(this.destroy)).subscribe(result => {
+        console.log(result);
       let content = result[1]['component']
       this.currentDialog = this.modalService.open(content, {centered: true});
       this.currentDialog.componentInstance.params = result[0];

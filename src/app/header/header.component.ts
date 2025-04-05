@@ -1,18 +1,25 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
-import {LoginComponent} from '../login/login.component';
-import {SignUpComponent} from '../sign-up/sign-up.component';
+import {ThemeService} from '../services/theme.service';
 
 @Component({
   selector: 'app-header',
   imports: [
     TranslateModule,
-    LoginComponent,
-    SignUpComponent,
+
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  constructor(private themeService: ThemeService) {
+  }
 
+  ngOnInit(): void {
+    this.themeService.initializeTheme();
+  }
+
+  toggleTheme(theme: string): void {
+    this.themeService.toggleTheme(theme);
+  }
 }
