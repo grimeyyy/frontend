@@ -1,15 +1,43 @@
-<!--<a routerLink="login" [class]="'btn btn-primary'" translate="LOGIN_SIGNUP.LOGIN"></a>-->
-<!--<router-outlet></router-outlet>-->
-<!--<app-login></app-login>-->
-<!--<app-sign-up></app-sign-up>-->
-<!--<nav class="navbar navbar-expand-lg px-3 py-2" [ngClass]="isDark() ? 'navbar-dark bg-dark': 'navbar-light bg-light'">-->
-<!--  <a class="navbar-brand" routerLink="/">MyApp</a>-->
-<!--  <div class="ms-auto d-flex align-items-center">-->
-<!--    <button class="btn btn-theme-toggle" (click)="toggleTheme()" aria-label="Toggle theme">-->
-<!--      <i class="bi" [ngClass]="isDark() ? 'bi-sun-fill' : 'bi-moon-stars-fill'"></i>-->
-<!--    </button>-->
-    <button (click)="toggleTheme('light')">Light Theme</button>
-    <button (click)="toggleTheme('dark')">Dark Theme</button>
-    <button (click)="toggleTheme('auto')">Auto Theme</button>
-<!--  </div>-->
-<!--</nav>-->
+<nav class="navbar navbar-expand-lg bg-body border-bottom shadow-sm px-4">
+  <div class="container-fluid">
+
+    <!--    <a class="navbar-brand fw-bold" routerLink="/">MyApp</a>-->
+
+<!--    <form class="mx-auto w-50 d-flex" (submit)="onSubmit($event)">-->
+<!--      <input type="text"-->
+<!--             [(ngModel)]="searchQuery"-->
+<!--             name="search"-->
+<!--             class="form-control me-2"-->
+<!--             placeholder="Search..."-->
+<!--             aria-label="Search">-->
+<!--      <button class="btn btn-outline-primary" type="submit">Search</button>-->
+<!--    </form>-->
+
+    <div class="d-flex align-items-center gap-3">
+      <a routerLink="/login" class="text-body text-decoration-none">
+        Login or Sign up <i class="bi bi-person-circle"></i>
+      </a>
+      <!--      <ng-container *ngIf="!isLoggedIn; else userInfo">-->
+      <!--        <a routerLink="/login" class="btn btn-outline-secondary">Login</a>-->
+      <!--      </ng-container>-->
+
+      <!--      <ng-template #userInfo>-->
+      <!--        <div class="d-flex align-items-center gap-2">-->
+      <!--          <img [src]="userAvatarUrl" alt="Avatar" class="rounded-circle" width="32" height="32">-->
+      <!--          <span class="fw-semibold">{{ username }}</span>-->
+      <!--        </div>-->
+      <!--      </ng-template>-->
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+

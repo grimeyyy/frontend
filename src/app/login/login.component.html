@@ -1,63 +1,35 @@
-<!--<button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}-->
-<!--</button>-->
-
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="card shadow-sm rounded-4">
-        <div class="card-body">
-          <h3 class="card-title text-center mb-4">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}</h3>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="emailLogin" class="form-label">
-                {{ 'LOGIN_SIGNUP.EMAIL' | translate }}:
-                <input formControlName="email" type="email" class="form-control form-control-lg" id="emailLogin"
-                       aria-describedby="emailHelp">
-              </label>
-              <label for="passwordLogin" class="form-label">
-                {{ 'LOGIN_SIGNUP.PASSWORD' | translate }}:
-                <input type="password" class="form-control form-control-lg" formControlName="password" id="passwordLogin"
-                       aria-describedby="passwordHelp">
-              </label>
-            </div>
-          </form>
-          <ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12" style="max-width: 25rem">
+      <h1 class="fs-1 text-center mb-4">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mb-5">
+        <div class="mb-4">
+          <label for="emailLogin" class="form-label w-100">
+            {{ 'LOGIN_SIGNUP.EMAIL' | translate }}
+            <input formControlName="email" type="email" class="form-control form-control-lg" id="emailLogin"
+                   aria-describedby="emailHelp">
+          </label>
+          <label for="passwordLogin" class="form-label w-100">
+            {{ 'LOGIN_SIGNUP.PASSWORD' | translate }}
+            <input type="password" class="form-control form-control-lg" formControlName="password"
+                   id="passwordLogin" aria-describedby="passwordHelp">
+          </label>
         </div>
-      </div>
+        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-secondary w-100">
+          {{ 'LOGIN_SIGNUP.LOGIN' | translate }}
+        </button>
+      </form>
+      <ngb-alert *ngIf="errorMessage" [dismissible]="false" [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
     </div>
   </div>
+  <div class="mt-3 text-center fs-6">
+    <p class="fs-6 w-100">
+      {{ 'LOGIN_SIGNUP.NO_ACCOUNT' | translate }}&nbsp;
+      <a routerLink="/sign-up" class="text-decoration-none">{{ 'LOGIN_SIGNUP.SIGNUP_HERE' | translate }}</a>
+    </p>
+    <p class="fs-6 w-100">
+      {{ 'LOGIN_SIGNUP.FORGOT_PASSWORD' | translate }}&nbsp;
+      <a routerLink="/forgot-password" class="text-decoration-none">{{ 'LOGIN_SIGNUP.RESET_PASSWORD' | translate }}</a>
+    </p>
+  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<ng-template #content let-modal>-->
-<!--  <div class="modal-header">-->
-<!--    <h4 class="modal-title" id="modal-basic-title">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}</h4>-->
-<!--&lt;!&ndash;    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>&ndash;&gt;-->
-<!--  </div>-->
-<!--  <div class="modal-body">-->
-<!--    -->
-
-<!--    <button type="button" class="btn btn-link" *ngIf="errorMessage === 'ERROR.VERIFY_EMAIL_BEFORE_LOGIN'"-->
-<!--            (click)="resendEmail()">{{ 'LOGIN_SIGNUP.RESEND_EMAIL' | translate }}-->
-<!--    </button>-->
-<!--    <button type="button" class="btn btn-link"-->
-<!--            (click)="onForgotPassword()">{{ 'LOGIN_SIGNUP.FORGOT_PASSWORD' | translate }}-->
-<!--    </button>-->
-<!--    <div class="modal-footer">-->
-<!--      <button type="submit" (click)="onSubmit()" class="btn btn-primary"-->
-<!--              [disabled]="loginForm.invalid">{{ 'GENERAL.SUBMIT' | translate }}-->
-<!--      </button>-->
-<!--      <button type="button" (click)="closeModal()" class="btn btn-danger">{{ 'GENERAL.CANCEL' | translate }}</button>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</ng-template>-->

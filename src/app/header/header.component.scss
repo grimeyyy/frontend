@@ -1,4 +1,4 @@
-.btn-theme-toggle {
+.btn-header {
   background: transparent;
   border: none;
   font-size: 1.5rem;
@@ -7,7 +7,7 @@
 
   &:hover {
     transform: rotate(25deg);
-    color: var(--bs-primary);
+    color: var(--bs-purple);
   }
 
   i {

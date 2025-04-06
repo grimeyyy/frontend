@@ -1,0 +1,45 @@
+<div class="d-flex flex-column flex-shrink-0 p-3" [ngStyle]="{'width': '250px', 'min-height': '100vh'}">
+  <a routerLink="/home" class="d-flex align-items-center mb-3 text-decoration-none text-body fs-4">
+    <strong>dashbrd</strong>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/dashboard" class="nav-link text-body">Dashboard</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/users" class="nav-link text-body">Users</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/reports" class="nav-link text-body">Reports</a>
+    </li>
+  </ul>
+  <div class="dropdown">
+    <button class="btn btn-outline-secondary dropdown-toggle w-100 d-flex align-items-center justify-content-between"
+            type="button"
+            id="themeDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+      <i class="bi bi-gear-fill me-2"></i> {{ 'NAVIGATION.SETTINGS' | translate }}
+    </button>
+
+    <ul class="dropdown-menu w-100" aria-labelledby="themeDropdown">
+      <li><h6 class="dropdown-header">Choose Theme</h6></li>
+      <li>
+        <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('light')">
+          <i class="bi bi-sun-fill"></i> Light
+        </button>
+      </li>
+      <li>
+        <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('dark')">
+          <i class="bi bi-moon-stars-fill"></i> Dark
+        </button>
+      </li>
+      <li>
+        <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('auto')">
+          <i class="bi bi-circle-half"></i> Auto
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

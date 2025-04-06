@@ -52,7 +52,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // if (this.resetPasswordForm.invalid) return;
+    if (this.resetPasswordForm.invalid) return;
 
     const newPassword = this.resetPasswordForm.value.newPassword;
     this.authService.resetPassword(this.token, newPassword).subscribe({

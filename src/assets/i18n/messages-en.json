@@ -11,8 +11,13 @@
     "SIGNUP": "Sign up",
     "EMAIL": "Email",
     "PASSWORD": "Password",
-    "FORGOT_PASSWORD": "Forgot password?",
-    "RESET_PASSWORD": "Reset password"
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "RESET_PASSWORD": "Reset password",
+    "NO_ACCOUNT": "Don't have an account?",
+    "SIGNUP_HERE": "Sign up here"
+  },
+  "NAVIGATION": {
+    "SETTING": "Settings"
   },
   "VALIDATION": {
     "PASSWORD_MISMATCH": "Passwords dont match!"

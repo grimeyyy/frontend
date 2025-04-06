@@ -5,16 +5,18 @@ import {AuthService} from '../services/auth.service';
 import {NgIf} from '@angular/common';
 import {NgbAlert, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslatePipe} from '@ngx-translate/core';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
-  imports: [
-    FormsModule,
-    NgIf,
-    NgbAlert,
-    ReactiveFormsModule,
-    TranslatePipe
-  ],
+    imports: [
+        FormsModule,
+        NgIf,
+        NgbAlert,
+        ReactiveFormsModule,
+        TranslatePipe,
+        RouterLink
+    ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })

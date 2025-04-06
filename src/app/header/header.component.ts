@@ -1,25 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Output} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
-import {ThemeService} from '../services/theme.service';
+import {RouterLink} from '@angular/router';
+import EventEmitter from 'node:events';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   imports: [
     TranslateModule,
+    RouterLink,
+    FormsModule,
 
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {
-  constructor(private themeService: ThemeService) {
-  }
+export class HeaderComponent {
+  searchQuery: string = '';
 
-  ngOnInit(): void {
-    this.themeService.initializeTheme();
-  }
+  // @Output() search = new EventEmitter<{ query: string }>();
+  //
+  // onSubmit(event: Event): void {
+  //   event.preventDefault();
+  //   this.search.emit({ query: this.searchQuery });
+  // }
 
-  toggleTheme(theme: string): void {
-    this.themeService.toggleTheme(theme);
-  }
 }
