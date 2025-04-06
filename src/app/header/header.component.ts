@@ -20,9 +20,9 @@ export class HeaderComponent {
 
   // @Output() search = new EventEmitter<{ query: string }>();
   //
-  // onSubmit(event: Event): void {
+  onSubmit(event: Event): void {
   //   event.preventDefault();
   //   this.search.emit({ query: this.searchQuery });
-  // }
+  }
 
 }

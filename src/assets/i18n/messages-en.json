@@ -1,8 +1,4 @@
 {
-  "GENERAL": {
-    "SUBMIT": "Submit",
-    "CANCEL": "Cancel"
-  },
   "HOME": {
     "WELCOME_MSG": "Welcome to our platform"
   },
@@ -17,7 +13,7 @@
     "SIGNUP_HERE": "Sign up here"
   },
   "NAVIGATION": {
-    "SETTING": "Settings"
+    "SETTINGS": "Settings"
   },
   "VALIDATION": {
     "PASSWORD_MISMATCH": "Passwords dont match!"
