@@ -1,4 +1,7 @@
 {
+  "GENERAL": {
+    "SEARCH": "Search"
+  },
   "HOME": {
     "WELCOME_MSG": "Welcome to our platform"
   },

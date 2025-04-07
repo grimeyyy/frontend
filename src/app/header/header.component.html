@@ -8,15 +8,15 @@
                [(ngModel)]="searchQuery"
                name="search"
                class="form-control form-control-lg me-2"
-               placeholder="Search..."
+               placeholder="{{'GENERAL.SEARCH' | translate}}..."
                aria-label="Search">
-        <button class="btn btn-outline-secondary" type="submit">Search</button>
+        <button class="btn btn-outline-secondary" type="submit">{{'GENERAL.SEARCH' | translate}}</button>
       </form>
 
       <div class="d-flex align-items-center gap-3">
-        <a routerLink="/login" class="text-body text-decoration-none">
+        <button routerLink="/login" class="text-body btn btn-link text-decoration-none">
           Login or Sign up <i class="bi bi-person-circle"></i>
-        </a>
+        </button>
         <!--      <ng-container *ngIf="!isLoggedIn; else userInfo">-->
         <!--        <a routerLink="/login" class="btn btn-outline-secondary">Login</a>-->
         <!--      </ng-container>-->
@@ -27,6 +27,12 @@
         <!--          <span class="fw-semibold">{{ username }}</span>-->
         <!--        </div>-->
         <!--      </ng-template>-->
+        <span class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+          <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-body"></div>
+          <hr class="d-lg-none my-2 text-white-50">
+        </span>
+
+        <button class="btn btn-link text-body"><i class="bi bi-bell-fill"></i></button>
       </div>
 
     </div>
