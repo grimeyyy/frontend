@@ -31,6 +31,9 @@ export const routes: Routes = [
         path: 'reset-password',
         loadComponent: () => import('./reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
       },
+      {
+        path: 'email-sent', loadComponent: () => import('./email-sent/email-sent.component').then(m => m.EmailSentComponent)
+      }
     ]
   },
   {path: '**', redirectTo: 'home'}

@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
 import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +19,7 @@ export class LoginComponent {
 
   public loggedIn = false;
 
-  constructor(private http: HttpClient, private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.loginForm = this.formBuilder.nonNullable.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -31,7 +30,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/dashboard']);
+        void this.router.navigate(['/dashboard']);
         this.loggedIn = true;
       },
       error: err => this.errorMessage = err.error.message,
@@ -40,19 +39,15 @@ export class LoginComponent {
   }
 
 
-  resendEmail() {
-    let email = this.loginForm.value.email;
-    this.authService.resendConfirmationEmail(email);
-  }
 
   onForgotPassword() {
     const email = this.loginForm.value.email;
     this.authService.forgotPassword(email).subscribe({
       next: () => {
-        alert('Password reset email sent!');
+        // alert('Password reset email sent!');
       },
       error: (err) => {
-        alert('Error sending reset email!');
+        // alert('Error sending reset email!');
       }
     });
   }

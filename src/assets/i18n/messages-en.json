@@ -10,10 +10,13 @@
     "SIGNUP": "Sign up",
     "EMAIL": "Email",
     "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm password",
     "FORGOT_PASSWORD": "Forgot your password?",
     "RESET_PASSWORD": "Reset password",
     "NO_ACCOUNT": "Don't have an account?",
-    "SIGNUP_HERE": "Sign up here"
+    "SIGNUP_HERE": "Sign up here",
+    "ALREADY_SIGNED_UP": "Already signed up?",
+    "REMEMBER_PASSWORD": "Remember your password?"
   },
   "NAVIGATION": {
     "SETTINGS": "Settings"

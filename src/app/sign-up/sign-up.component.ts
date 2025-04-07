@@ -1,22 +1,21 @@
 import {Component, inject, TemplateRef} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../services/auth.service';
 import {NgIf} from '@angular/common';
 import {NgbAlert, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslatePipe} from '@ngx-translate/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
-    imports: [
-        FormsModule,
-        NgIf,
-        NgbAlert,
-        ReactiveFormsModule,
-        TranslatePipe,
-        RouterLink
-    ],
+  imports: [
+    FormsModule,
+    NgIf,
+    NgbAlert,
+    ReactiveFormsModule,
+    TranslatePipe,
+    RouterLink
+  ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
@@ -25,7 +24,7 @@ export class SignUpComponent {
   public errorMessage = '';
   public signUpForm: FormGroup;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.signUpForm = formBuilder.nonNullable.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -40,24 +39,18 @@ export class SignUpComponent {
   }
 
   openModal(content: TemplateRef<any>) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, {centered: true});
   }
 
   onSubmit() {
     const {email, password} = this.signUpForm.value;
     this.authService.signUp({email, password}).subscribe({
-      next: (response) => {
-        console.log(response);
-        // this.errorMessage = 'Registrierung erfolgreich!';
+      next: () => {
+        this.router.navigate(['/email-sent'], {queryParams: {email}});
       },
-      error: (err) => {
-        // this.errorMessage = 'Fehler: ' + (err.error || 'Registrierung fehlgeschlagen');
-      }
-    });
-  }
+      error: err => this.errorMessage = err.error.message,
 
-  closeModal() {
-    this.modalService.dismissAll()
+    });
   }
 
 }
