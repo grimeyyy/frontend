@@ -1,4 +1,14 @@
-.nav-link.active {
-  font-weight: bold;
-  text-decoration: underline;
+.nav-link {
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background-color: var(--bs-secondary-bg);
+  }
+
+  &.active {
+    background-color: var(--bs-border-color-translucent);
+    color: var(--bs-body-color) !important;
+    font-weight: 600;
+  }
 }
