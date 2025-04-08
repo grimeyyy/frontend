@@ -24,6 +24,10 @@ export class AuthService {
     return this.http.post<{ token: string }>('api/auth/login', loginData);
   }
 
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/home']);
@@ -34,14 +38,14 @@ export class AuthService {
   }
 
   resendConfirmationEmail(email: string) {
-     return this.http.post('/api/auth/resend-confirmation?email=' + email,  { });
+     return this.http.post<{ message: string }>('/api/auth/resend-confirmation?email=' + email,  { });
   }
 
   forgotPassword(email: string) {
-    return this.http.post('/api/auth/forgot-password', { email });
+    return this.http.post<{ message: string }>('/api/auth/forgot-password', { email });
   }
 
   resetPassword(token: string, newPassword: string) {
-    return this.http.post('/api/auth/reset-password', { token, newPassword });
+    return this.http.post<{ message: string }>('/api/auth/reset-password', { token, newPassword });
   }
 }

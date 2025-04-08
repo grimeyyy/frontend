@@ -49,7 +49,6 @@ export class SignUpComponent {
         this.router.navigate(['/email-sent'], {queryParams: {email}});
       },
       error: err => this.errorMessage = err.error.message,
-
     });
   }
 

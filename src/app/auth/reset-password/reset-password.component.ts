@@ -4,13 +4,15 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {NgIf} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-reset-password',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    TranslatePipe
+    TranslatePipe,
+    NgbAlert
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
@@ -18,7 +20,8 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
   token: string = '';
-  message: string = '';
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,14 +31,14 @@ export class ResetPasswordComponent implements OnInit {
   ) {
     this.resetPasswordForm = this.formBuilder.nonNullable.group({
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
+      confirmNewPassword: ['', Validators.required]
     }, {validators: this.passwordMatchValidator});
   }
 
   ngOnInit(): void {
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
     if (!this.token) {
-      this.message = 'ERROR.INVALID_OR_EXPIRED_TOKEN';
+      this.errorMessage = 'ERROR.INVALID_OR_EXPIRED_TOKEN';
       return;
     }
 
@@ -54,12 +57,12 @@ export class ResetPasswordComponent implements OnInit {
     const newPassword = this.resetPasswordForm.value.newPassword;
     this.authService.resetPassword(this.token, newPassword).subscribe({
       next: (response) => {
-        this.message = response.message;
+        this.successMessage = response.message;
         // redirect after 5 seconds
         setTimeout(() => this.router.navigate(['/login']), 5000);
       },
       error: (err) => {
-        this.message = err.error.message || 'ERROR.VERIFICATION_FAILED';
+        this.errorMessage = err.error.message || 'ERROR.VERIFICATION_FAILED';
       }
     });
   }

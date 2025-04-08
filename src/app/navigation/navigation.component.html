@@ -4,36 +4,12 @@
   </a>
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a routerLink="/home"
+    <li class="nav-item" *ngFor="let item of visibleItems">
+      <a [routerLink]="item.path"
          routerLinkActive="active"
          class="nav-link d-flex align-items-center gap-2 text-body transition">
-        <i class="bi bi-house-door"></i>
-        Home
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/dashboard"
-         routerLinkActive="active"
-         class="nav-link d-flex align-items-center gap-2 text-body transition">
-        <i class="bi bi-speedometer2"></i>
-        Dashboard
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/users"
-         routerLinkActive="active"
-         class="nav-link d-flex align-items-center gap-2 text-body transition">
-        <i class="bi bi-people"></i>
-        Users
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/reports"
-         routerLinkActive="active"
-         class="nav-link d-flex align-items-center gap-2 text-body transition">
-        <i class="bi bi-file-earmark-bar-graph"></i>
-        Reports
+        <i class="bi" [ngClass]="item.icon"></i>
+        {{ item.label | translate }}
       </a>
     </li>
   </ul>
@@ -43,24 +19,24 @@
             id="themeDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false">
-      <i class="bi bi-gear-fill me-2"></i> {{ 'NAVIGATION.SETTINGS' | translate }}
+      <i class="bi bi-gear-fill me-2"></i>&nbsp;{{ 'NAVIGATION.SETTINGS' | translate }}
     </button>
 
     <ul class="dropdown-menu w-100" aria-labelledby="themeDropdown">
-      <li><h6 class="dropdown-header">Choose Theme</h6></li>
+      <li><h6 class="dropdown-header">{{ 'NAVIGATION.CHOOSE_THEME' | translate }}</h6></li>
       <li>
         <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('light')">
-          <i class="bi bi-sun-fill"></i> Light
+          <i class="bi bi-sun-fill"></i>&nbsp;{{ 'NAVIGATION.LIGHT_THEME' | translate }}
         </button>
       </li>
       <li>
         <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('dark')">
-          <i class="bi bi-moon-stars-fill"></i> Dark
+          <i class="bi bi-moon-stars-fill"></i>&nbsp;{{ 'NAVIGATION.DARK_THEME' | translate }}
         </button>
       </li>
       <li>
         <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('auto')">
-          <i class="bi bi-circle-half"></i> Auto
+          <i class="bi bi-circle-half"></i>&nbsp;{{ 'NAVIGATION.AUTO_THEME' | translate }}
         </button>
       </li>
     </ul>

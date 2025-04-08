@@ -3,17 +3,22 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {TranslatePipe} from '@ngx-translate/core';
 import {AuthService} from '../../services/auth.service';
+import {NgIf} from '@angular/common';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-verify-email',
   imports: [
-    TranslatePipe
+    TranslatePipe,
+    NgIf,
+    NgbAlert
   ],
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.scss'
 })
 export class VerifyEmailComponent implements OnInit {
-  message = '';
+  public errorMessage = '';
+  public successMessage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -29,16 +34,16 @@ export class VerifyEmailComponent implements OnInit {
       this.authService.verifyEmail(token)
         .subscribe({
           next: (response) => {
-            this.message = response.message;
+            this.successMessage = response.message;
             // redirect after 5 seconds
             setTimeout(() => this.router.navigate(['/login']), 5000);
           },
           error: (err) => {
-            this.message = err.error.message || 'ERROR.VERIFICATION_FAILED';
+            this.errorMessage = err.error.message || 'ERROR.VERIFICATION_FAILED';
           }
         });
     } else {
-      this.message = 'ERROR.NO_TOKEN_PROVIDED';
+      this.errorMessage = 'ERROR.NO_TOKEN_PROVIDED';
     }
   }
 }

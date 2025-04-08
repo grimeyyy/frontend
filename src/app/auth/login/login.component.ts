@@ -37,18 +37,4 @@ export class LoginComponent {
     });
 
   }
-
-
-
-  onForgotPassword() {
-    const email = this.loginForm.value.email;
-    this.authService.forgotPassword(email).subscribe({
-      next: () => {
-        // alert('Password reset email sent!');
-      },
-      error: (err) => {
-        // alert('Error sending reset email!');
-      }
-    });
-  }
 }

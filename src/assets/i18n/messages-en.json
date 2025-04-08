@@ -19,13 +19,31 @@
     "REMEMBER_PASSWORD": "Remember your password?"
   },
   "NAVIGATION": {
-    "SETTINGS": "Settings"
+    "HOME": "Home",
+    "DASHBOARD": "Dashboard",
+    "SETTINGS": "Settings",
+    "CHOOSE_THEME": "Choose theme",
+    "LIGHT_THEME": "Light",
+    "DARK_THEME": "Dark",
+    "AUTO_THEME": "Auto"
   },
   "VALIDATION": {
     "PASSWORD_MISMATCH": "Passwords dont match!"
   },
+  "SUCCESS": {
+    "PASSWORD_SUCCESSFULLY_RESET": "Password successfully reset!",
+    "PASSWORD_RESET_EMAIL_SENT": "Password reset email sent!",
+    "NEW_CONFIRMATION_EMAIL_SENT": "New confirmation email sent!",
+    "USER_REGISTERED_VERIFY_YOUR_EMAIL": "User registered! Verify your email to log in!"
+  },
   "ERROR": {
     "VERIFY_EMAIL_BEFORE_LOGIN": "Please, verify your email before logging in!",
-    "INVALID_CREDENTIALS": "Invalid credentials!"
+    "INVALID_CREDENTIALS": "Invalid credentials!",
+    "TOKEN_EXPIRED": "Token expired!",
+    "INVALID_OR_EXPIRED_TOKEN": "Invalid or expired token!",
+    "USER_NOT_FOUND": "User not found!",
+    "TOKEN_IS_STILL_VALID": "Token is still valid!",
+    "EMAIL_ALREADY_IN_CONFIRMED": "Email already confirmed!",
+    "EMAIL_ALREADY_IN_USE": "This email is already in use!"
   }
 }

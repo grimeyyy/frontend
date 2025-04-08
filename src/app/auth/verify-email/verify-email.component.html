@@ -1,1 +1,10 @@
-{{ message | translate }}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12" style="max-width: 25rem">
+      <ngb-alert *ngIf="successMessage" [dismissible]="false" [type]="'success'">{{ successMessage | translate }}
+      </ngb-alert>
+      <ngb-alert *ngIf="errorMessage" [dismissible]="false" [type]="'danger'">{{ errorMessage | translate }}
+      </ngb-alert>
+    </div>
+  </div>
+</div>
