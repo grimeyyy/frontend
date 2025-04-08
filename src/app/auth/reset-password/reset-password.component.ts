@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../../services/auth.service';
 import {NgIf} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
 
@@ -18,7 +18,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
   token: string = '';
-  errorMessage: string = '';
+  message: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,12 +33,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Token aus URL auslesen
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
-
-    // Falls kein Token vorhanden ist, zeige eine Fehlermeldung an
     if (!this.token) {
-      this.errorMessage = 'Ungültiger oder fehlender Reset-Token.';
+      this.message = 'ERROR.INVALID_OR_EXPIRED_TOKEN';
       return;
     }
 
@@ -56,12 +53,13 @@ export class ResetPasswordComponent implements OnInit {
 
     const newPassword = this.resetPasswordForm.value.newPassword;
     this.authService.resetPassword(this.token, newPassword).subscribe({
-      next: () => {
-        alert('Passwort erfolgreich zurückgesetzt! Du kannst dich jetzt einloggen.');
-        this.router.navigate(['/login']);
+      next: (response) => {
+        this.message = response.message;
+        // redirect after 5 seconds
+        setTimeout(() => this.router.navigate(['/login']), 5000);
       },
       error: (err) => {
-        this.errorMessage = 'Fehler beim Zurücksetzen des Passworts.';
+        this.message = err.error.message || 'ERROR.VERIFICATION_FAILED';
       }
     });
   }

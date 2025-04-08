@@ -29,6 +29,10 @@ export class AuthService {
     this.router.navigate(['/home']);
   }
 
+  verifyEmail(token: string): Observable<any> {
+    return this.http.get<{ message: string }>(`/api/auth/verify-email?token=${token}`);
+  }
+
   resendConfirmationEmail(email: string) {
      return this.http.post('/api/auth/resend-confirmation?email=' + email,  { });
   }

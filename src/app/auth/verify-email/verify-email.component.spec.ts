@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalWrapperComponent } from './modal-wrapper.component';
+import { VerifyEmailComponent } from './verify-email.component';
 
-describe('ModalWrapperComponent', () => {
-  let component: ModalWrapperComponent;
-  let fixture: ComponentFixture<ModalWrapperComponent>;
+describe('VerifyEmailComponent', () => {
+  let component: VerifyEmailComponent;
+  let fixture: ComponentFixture<VerifyEmailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalWrapperComponent]
+      imports: [VerifyEmailComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ModalWrapperComponent);
+    fixture = TestBed.createComponent(VerifyEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
