@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return typeof localStorage !== 'undefined' && !!localStorage.getItem('token');
   }
 
   logout(): void {

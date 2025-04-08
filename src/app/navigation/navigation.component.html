@@ -19,24 +19,24 @@
             id="themeDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false">
-      <i class="bi bi-gear-fill me-2"></i>&nbsp;{{ 'NAVIGATION.SETTINGS' | translate }}
+      <i class="bi bi-gear-fill me-2"></i>{{ 'NAVIGATION.SETTINGS' | translate }}
     </button>
 
     <ul class="dropdown-menu w-100" aria-labelledby="themeDropdown">
       <li><h6 class="dropdown-header">{{ 'NAVIGATION.CHOOSE_THEME' | translate }}</h6></li>
       <li>
-        <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('light')">
-          <i class="bi bi-sun-fill"></i>&nbsp;{{ 'NAVIGATION.LIGHT_THEME' | translate }}
+        <button class="dropdown-item d-flex align-items-center gap-3 text-body" (click)="toggleTheme('light')">
+          <i class="bi bi-sun-fill"></i>{{ 'NAVIGATION.LIGHT_THEME' | translate }}
         </button>
       </li>
       <li>
-        <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('dark')">
-          <i class="bi bi-moon-stars-fill"></i>&nbsp;{{ 'NAVIGATION.DARK_THEME' | translate }}
+        <button class="dropdown-item d-flex align-items-center gap-3 text-body" (click)="toggleTheme('dark')">
+          <i class="bi bi-moon-stars-fill"></i> {{ 'NAVIGATION.DARK_THEME' | translate }}
         </button>
       </li>
       <li>
-        <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme('auto')">
-          <i class="bi bi-circle-half"></i>&nbsp;{{ 'NAVIGATION.AUTO_THEME' | translate }}
+        <button class="dropdown-item d-flex align-items-center gap-3 text-body" (click)="toggleTheme('auto')">
+          <i class="bi bi-circle-half"></i>{{ 'NAVIGATION.AUTO_THEME' | translate }}
         </button>
       </li>
     </ul>

@@ -1,16 +1,18 @@
-.btn-header {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: inherit;
-  transition: transform 0.3s ease, color 0.2s ease;
+.dropdown-menu {
+  min-width: 200px;
+  font-size: 0.95rem;
+}
 
-  &:hover {
-    transform: rotate(25deg);
-    color: var(--bs-purple);
-  }
+.dropdown-menu a.dropdown-item {
+  transition: background-color 0.2s ease;
+}
 
-  i {
-    pointer-events: none;
-  }
+.dropdown-menu a.dropdown-item:hover {
+  background-color: var(--bs-secondary-bg);
+}
+
+.user-dropdown {
+  border-radius: 0.25rem;
+  min-width: 100%;
+  transform: translateY(8px);
 }

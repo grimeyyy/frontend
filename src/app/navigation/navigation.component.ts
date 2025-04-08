@@ -30,7 +30,7 @@ export class NavigationComponent  implements OnInit {
   }
 
   get visibleItems() {
-    const isLoggedIn = this.authService.isAuthenticated(); // oder was du nutzt
+    const isLoggedIn = this.authService.isAuthenticated();
     return this.navigationItems.filter(item => !item.authRequired || isLoggedIn);
   }
 
