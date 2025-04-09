@@ -36,7 +36,7 @@ export class ForgotPasswordComponent {
     this.authService.forgotPassword(email).subscribe({
       next: (response) => {
         this.successMessage = response.message;
-        setTimeout(() => this.router.navigate(['/email-sen'], {queryParams: {email}}), 5000);
+        setTimeout(() => this.router.navigate(['/email-sent'], {queryParams: {email}}), 5000);
       },
       error: err => this.errorMessage = err.error.message,
     })
