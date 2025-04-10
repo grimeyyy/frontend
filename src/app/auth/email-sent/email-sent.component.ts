@@ -19,15 +19,20 @@ export class EmailSentComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.email = params.get('email') ?? '';
 
-      void this.router.navigate([], {
-        queryParams: {email: null},
-        queryParamsHandling: 'merge'
-      });
+      if (this.email) {
+        setTimeout(() => {
+          void this.router.navigate([], {
+            queryParams: { email: null },
+            queryParamsHandling: 'merge',
+            skipLocationChange: true
+          });
+        }, 200);
+      }
     });
   }
 
   resendEmail() {
-    this.authService.resendConfirmationEmail(this.email);
+    this.authService.resendVerificationEmail(this.email);
   }
 
 

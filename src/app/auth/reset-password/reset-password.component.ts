@@ -1,27 +1,28 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
-import {NgIf} from '@angular/common';
-import {TranslatePipe} from '@ngx-translate/core';
-import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
+import {passwordMatchValidator} from '../../utils/validators/password-match';
+import {FormField} from '../../utils/interfaces/form-field.interface';
+import {FormLink} from '../../utils/interfaces/form-link.interface';
+import {GenericFormComponent} from '../../utils/generic-form/generic-form.component';
 
 @Component({
   selector: 'app-reset-password',
   imports: [
     ReactiveFormsModule,
-    NgIf,
-    TranslatePipe,
-    NgbAlert
+    GenericFormComponent
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent implements OnInit {
-  resetPasswordForm: FormGroup;
-  token: string = '';
-  successMessage: string = '';
-  errorMessage: string = '';
+  private token: string = '';
+  public successMessage: string = '';
+  public errorMessage: string = '';
+  public resetPasswordForm: FormGroup;
+  public resetPasswordFields: Array<FormField> = [];
+  public resetPasswordLinks: Array<FormLink> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,9 +31,18 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router
   ) {
     this.resetPasswordForm = this.formBuilder.nonNullable.group({
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmNewPassword: ['', Validators.required]
-    }, {validators: this.passwordMatchValidator});
+      newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmNewPassword: new FormControl('', Validators.required)
+    }, {validators: [passwordMatchValidator]});
+
+    this.resetPasswordFields = [
+      {id: 'passwordResetPassword', name: 'newPassword', label: 'New password', type: 'password', translateKey: 'LOGIN_SIGNUP.PASSWORD'},
+      {id: 'confirmPasswordResetPassword', name: 'confirmNewPassword', label: 'Confirm new password', type: 'password', translateKey: 'LOGIN_SIGNUP.CONFIRM_PASSWORD'}
+    ]
+
+    this.resetPasswordLinks = [
+      {helpText: 'LOGIN_SIGNUP.REMEMBER_PASSWORD', href: "/login", linkText: 'LOGIN_SIGNUP.LOGIN'},
+    ]
   }
 
   ngOnInit(): void {
@@ -41,14 +51,6 @@ export class ResetPasswordComponent implements OnInit {
       this.errorMessage = 'ERROR.INVALID_OR_EXPIRED_TOKEN';
       return;
     }
-
-
-  }
-
-  passwordMatchValidator(form: AbstractControl) {
-    const password = form.get('password')?.value;
-    const confirmPassword = form.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : {mismatch: true};
   }
 
   onSubmit(): void {
@@ -66,4 +68,6 @@ export class ResetPasswordComponent implements OnInit {
       }
     });
   }
+
+  protected readonly passwordMatchValidator = passwordMatchValidator;
 }

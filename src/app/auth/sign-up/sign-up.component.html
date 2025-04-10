@@ -1,79 +1,13 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12" style="max-width: 25rem">
-      <h1 class="fs-1 text-center mb-4">{{ 'LOGIN_SIGNUP.SIGNUP' | translate }}</h1>
-      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="mb-5">
-        <div class="mb-4">
-          <label for="emailSignUp" class="form-label w-100">
-            {{ 'LOGIN_SIGNUP.EMAIL' | translate }}
-            <input formControlName="email" type="email" class="form-control form-control-lg" id="emailSignUp"
-                   aria-describedby="emailHelp">
-          </label>
-          <label for="passwordSignUp" class="form-label w-100">
-            {{ 'LOGIN_SIGNUP.PASSWORD' | translate }}
-            <input type="password" class="form-control form-control-lg" formControlName="password"
-                   id="passwordSignUp" aria-describedby="passwordHelp">
-          </label>
-          <label for="confirmPasswordSignUp" class="form-label w-100">
-            {{ 'LOGIN_SIGNUP.CONFIRM_PASSWORD' | translate }}
-            <input type="password" class="form-control form-control-lg" formControlName="confirmPassword"
-                   id="confirmPasswordSignUp"
-                   aria-describedby="confirmPasswordHelp">
-          </label>
-        </div>
-        <button type="submit" [disabled]="signUpForm.invalid" class="btn btn-secondary w-100">
-          {{ 'LOGIN_SIGNUP.SIGNUP' | translate }}
-        </button>
-      </form>
-      <ngb-alert *ngIf="errorMessage" [dismissible]="false" [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
-    </div>
-  </div>
-  <div class="mt-3 text-center fs-6">
-    <p class="fs-6 w-100">
-      {{ 'LOGIN_SIGNUP.ALREADY_SIGNED_UP' | translate }}&nbsp;
-      <a routerLink="/login" class="text-decoration-none">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}</a>
-    </p>
-  </div>
-</div>
-
-
-
-
-
-
-
-<!--<div class="container h-100">-->
-<!--  <div class="row h-100 justify-content-center align-items-center">-->
-<!--    <div class="col-12 col-md-6 col-lg-4">-->
-<!--      <div class="card shadow-sm rounded-4">-->
-<!--        <div class="card-body">-->
-<!--          <h3 class="card-title text-center mb-4">{{ 'LOGIN_SIGNUP.SIGNUP' | translate }}</h3>-->
-<!--          <form [formGroup]="signUpForm">-->
-<!--            <div class="mb-3">-->
-<!--              <label for="emailSignUp" class="form-label">-->
-<!--                {{ 'LOGIN_SIGNUP.EMAIL' | translate }}:-->
-<!--                <input formControlName="email" type="email" class="form-control form-control-lg" id="emailSignUp"-->
-<!--                       aria-describedby="emailHelp">-->
-<!--              </label>-->
-<!--              <label for="passwordSignUp" class="form-label">-->
-<!--                {{ 'LOGIN_SIGNUP.PASSWORD' | translate }}:-->
-<!--                <input type="password" class="form-control form-control-lg" formControlName="password"-->
-<!--                       id="passwordSignUp"-->
-<!--                       aria-describedby="passwordHelp">-->
-<!--              </label>-->
-<!--              <label for="confirmPasswordSignUp" class="form-label">-->
-<!--                {{ 'LOGIN_SIGNUP.CONFIRM_PASSWORD' | translate }}:-->
-<!--                <input type="password" class="form-control form-control-lg" formControlName="confirmPassword"-->
-<!--                       id="confirmPasswordSignUp"-->
-<!--                       aria-describedby="confirmPasswordHelp">-->
-<!--              </label>-->
-<!--            </div>-->
-<!--          </form>-->
-<!--          <ngb-alert *ngIf="errorMessage" [dismissible]=false [type]="'danger'">{{ errorMessage | translate }}-->
-<!--          </ngb-alert>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      Already signed up? <a routerLink="/login">Log in here</a>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<app-generic-form
+  [heading]="'LOGIN_SIGNUP.SIGNUP'"
+  [formGroup]="signUpForm"
+  [fields]="signUpFields"
+  [submitText]="'LOGIN_SIGNUP.SIGNUP'"
+  [formValidators]="[passwordMatchValidator]"
+  [errorMessage]="errorMessage"
+  [errorMessageArgs]="{email: email}"
+  [successMessage]="successMessage"
+  [successMessageArgs]="{email}"
+  [formLinks]="signUpLinks"
+  (submitForm)="onSubmit()">
+</app-generic-form>

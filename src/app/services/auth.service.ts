@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   signUp(signUpData: AuthRequest): Observable<any> {
-    return this.http.post('api/auth/sign-up', signUpData);
+    return this.http.post<{ message: string }>('api/auth/sign-up', signUpData);
   }
 
   login(loginData: AuthRequest): Observable<{ token: string }> {
@@ -37,8 +37,8 @@ export class AuthService {
     return this.http.get<{ message: string }>(`/api/auth/verify-email?token=${token}`);
   }
 
-  resendConfirmationEmail(email: string) {
-     return this.http.post<{ message: string }>('/api/auth/resend-confirmation?email=' + email,  { });
+  resendVerificationEmail(email: string) {
+     return this.http.post<{ message: string }>('/api/auth/resend-verification?email=' + email,  { });
   }
 
   forgotPassword(email: string) {

@@ -1,35 +1,9 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12" style="max-width: 25rem">
-      <h1 class="fs-1 text-center mb-4">{{ 'LOGIN_SIGNUP.LOGIN' | translate }}</h1>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mb-5">
-        <div class="mb-4">
-          <label for="emailLogin" class="form-label w-100">
-            {{ 'LOGIN_SIGNUP.EMAIL' | translate }}
-            <input formControlName="email" type="email" class="form-control form-control-lg" id="emailLogin"
-                   aria-describedby="emailHelp">
-          </label>
-          <label for="passwordLogin" class="form-label w-100">
-            {{ 'LOGIN_SIGNUP.PASSWORD' | translate }}
-            <input type="password" class="form-control form-control-lg" formControlName="password"
-                   id="passwordLogin" aria-describedby="passwordHelp">
-          </label>
-        </div>
-        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-secondary w-100">
-          {{ 'LOGIN_SIGNUP.LOGIN' | translate }}
-        </button>
-      </form>
-      <ngb-alert *ngIf="errorMessage" [dismissible]="false" [type]="'danger'">{{ errorMessage | translate }}</ngb-alert>
-    </div>
-  </div>
-  <div class="text-center fs-6">
-    <p class="fs-6 w-100">
-      {{ 'LOGIN_SIGNUP.NO_ACCOUNT' | translate }}&nbsp;
-      <a routerLink="/sign-up" class="text-decoration-none">{{ 'LOGIN_SIGNUP.SIGNUP_HERE' | translate }}</a>
-    </p>
-    <p class="fs-6 w-100">
-      {{ 'LOGIN_SIGNUP.FORGOT_PASSWORD' | translate }}&nbsp;
-      <a routerLink="/forgot-password" class="text-decoration-none">{{ 'LOGIN_SIGNUP.RESET_PASSWORD' | translate }}</a>
-    </p>
-  </div>
-</div>
+<app-generic-form
+  [heading]="'LOGIN_SIGNUP.LOGIN'"
+  [formGroup]="loginForm"
+  [fields]="loginFields"
+  [submitText]="'LOGIN_SIGNUP.LOGIN'"
+  [errorMessage]="errorMessage"
+  [formLinks]="loginLinks"
+  (submitForm)="onSubmit()">
+</app-generic-form>

@@ -1,6 +1,7 @@
 {
   "GENERAL": {
-    "SEARCH": "Search"
+    "SEARCH": "Search",
+    "SUBMIT": "Submit"
   },
   "HOME": {
     "WELCOME_MSG": "Welcome to our platform"
@@ -16,7 +17,9 @@
     "NO_ACCOUNT": "Don't have an account?",
     "SIGNUP_HERE": "Sign up here",
     "ALREADY_SIGNED_UP": "Already signed up?",
-    "REMEMBER_PASSWORD": "Remember your password?"
+    "REMEMBER_PASSWORD": "Remember your password?",
+    "EMAIL_VERIFICATION": "Email verification",
+    "RESEND_VERIFICATION_MAIL": "Resend the verification email"
   },
   "NAVIGATION": {
     "HOME": "Home",
@@ -34,16 +37,21 @@
     "PASSWORD_SUCCESSFULLY_RESET": "Password successfully reset!",
     "PASSWORD_RESET_EMAIL_SENT": "Password reset email sent!",
     "NEW_CONFIRMATION_EMAIL_SENT": "New confirmation email sent!",
-    "USER_REGISTERED_VERIFY_YOUR_EMAIL": "User registered! Verify your email to log in!"
+    "USER_REGISTERED_VERIFY_YOUR_EMAIL": "Check your emails!<br/>A verification email has been sent to <strong>{{email}}</strong>.",
+    "EMAIL_SUCCESSFULLY_VERIFIED": "Your email was successfully verified. You will be redirected to Login page now."
   },
   "ERROR": {
+    "REQUIRED_FIELD": "This field is required!",
+    "INVALID_EMAIL": "Please enter a valid email address!",
+    "MINLENGTH": "Minimum length: {{requiredLength}} characters!",
+    "PASSWORD_MISMATCH": "Passwords do not match!",
     "VERIFY_EMAIL_BEFORE_LOGIN": "Please, verify your email before logging in!",
     "INVALID_CREDENTIALS": "Invalid credentials!",
-    "TOKEN_EXPIRED": "Token expired!",
+    "TOKEN_EXPIRED": "Oops! It appears that your token is expired!",
     "INVALID_OR_EXPIRED_TOKEN": "Invalid or expired token!",
     "USER_NOT_FOUND": "User not found!",
     "TOKEN_IS_STILL_VALID": "Token is still valid!",
     "EMAIL_ALREADY_IN_CONFIRMED": "Email already confirmed!",
-    "EMAIL_ALREADY_IN_USE": "This email is already in use!"
+    "EMAIL_ALREADY_IN_USE": "The email <strong>{{email}}</strong> is already in use!"
   }
 }

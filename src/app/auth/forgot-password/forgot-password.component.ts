@@ -1,34 +1,41 @@
 import {Component} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {TranslatePipe} from "@ngx-translate/core";
+import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
-import {NgIf} from '@angular/common';
-import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
+import {FormField} from '../../utils/interfaces/form-field.interface';
+import {FormLink} from '../../utils/interfaces/form-link.interface';
+import {GenericFormComponent} from '../../utils/generic-form/generic-form.component';
+import {passwordMatchValidator} from '../../utils/validators/password-match';
 
 @Component({
   selector: 'app-forgot-password',
   imports: [
-    RouterLink,
-    TranslatePipe,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
-    NgbAlert
+    GenericFormComponent
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent {
-
   public errorMessage: string = '';
   public successMessage: string = '';
   public forgotPasswordForm: FormGroup;
+  public forgotPasswordFields: Array<FormField> = [];
+  public forgotPasswordLinks: Array<FormLink> = [];
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.forgotPasswordForm = this.formBuilder.nonNullable.group({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
+
+    this.forgotPasswordFields = [
+      {id: 'emailForgotPassword', name: 'email', label: 'Email', type: 'email', translateKey: 'LOGIN_SIGNUP.EMAIL'},
+    ]
+
+    this.forgotPasswordLinks = [
+      {helpText: 'LOGIN_SIGNUP.REMEMBER_PASSWORD', href: "/login", linkText: 'LOGIN_SIGNUP.LOGIN'},
+    ]
   }
 
   onSubmit() {
@@ -42,4 +49,5 @@ export class ForgotPasswordComponent {
     })
   }
 
+  protected readonly passwordMatchValidator = passwordMatchValidator;
 }

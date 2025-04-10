@@ -1,17 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import {TranslatePipe} from '@ngx-translate/core';
 import {AuthService} from '../../services/auth.service';
 import {NgIf} from '@angular/common';
-import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
+import {GenericAlertComponent} from '../../utils/generic-alert/generic-alert.component';
 
 @Component({
   selector: 'app-verify-email',
   imports: [
     TranslatePipe,
     NgIf,
-    NgbAlert
+    GenericAlertComponent
   ],
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.scss'
@@ -22,10 +21,10 @@ export class VerifyEmailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const token = this.route.snapshot.queryParamMap.get('token');
@@ -46,4 +45,6 @@ export class VerifyEmailComponent implements OnInit {
       this.errorMessage = 'ERROR.NO_TOKEN_PROVIDED';
     }
   }
+
+
 }
