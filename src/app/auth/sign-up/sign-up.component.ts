@@ -34,7 +34,7 @@ export class SignUpComponent {
     this.signUpFields = [
       {id: 'emailSignUp', name: 'email', label: 'Email', type: 'email', translateKey: 'LOGIN_SIGNUP.EMAIL'},
       {id: 'passwordSignUp', name: 'password', label: 'Password', type: 'password', translateKey: 'LOGIN_SIGNUP.PASSWORD'},
-      {id: 'confirmPasswordSignUp', name: 'confirmPassword', label: 'Confirm Password', type: 'password', translateKey: 'LOGIN_SIGNUP.CONFIRM_PASSWORD'}
+      {id: 'confirmPasswordSignUp', name: 'confirmPassword', label: 'Confirm password', type: 'password', translateKey: 'LOGIN_SIGNUP.CONFIRM_PASSWORD'}
     ];
 
     this.signUpLinks = [
@@ -44,7 +44,6 @@ export class SignUpComponent {
 
   onSubmit() {
     const {email, password} = this.signUpForm.value;
-    debugger
     this.email = email;
     this.authService.signUp({email, password}).subscribe({
       next: (response) => {
