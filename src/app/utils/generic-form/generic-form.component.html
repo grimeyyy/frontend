@@ -4,7 +4,7 @@
       <h1 class="fs-1 text-center mb-4">{{ heading | translate }}</h1>
       <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="mb-5">
         <div class="mb-4">
-          <ng-container *ngFor="let field of fields">
+          <ng-container *ngFor="let field of formFields">
             <label [for]="field.name" class="form-label w-100">
               {{ field.translateKey ? (field.translateKey | translate) : field.label }}
               <input
@@ -16,7 +16,8 @@
                 [ngClass]="{ 'is-invalid': formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched }"
               />
             </label>
-            <div class="invalid-feedback d-inline-block mb-2" *ngIf="formGroup.get(field.name)?.touched && formGroup.get(field.name)?.errors">
+            <div class="invalid-feedback d-inline-block mb-2"
+                 *ngIf="formGroup.get(field.name)?.touched && formGroup.get(field.name)?.errors">
               <ng-container *ngIf="formGroup.get(field.name)?.errors?.['required']">
                 {{ 'ERROR.REQUIRED_FIELD' | translate }}
               </ng-container>
@@ -39,14 +40,14 @@
         </button>
       </form>
       <app-generic-alert *ngIf="successMessage"
-                 [type]="'success'"
-                 [message]="successMessage"
-                 [args]="successMessageArgs">
+                         [type]="'success'"
+                         [message]="successMessage"
+                         [args]="successMessageArgs">
       </app-generic-alert>
       <app-generic-alert *ngIf="errorMessage"
-                 [type]="'danger'"
-                 [message]="errorMessage"
-                 [args]="errorMessageArgs">
+                         [type]="'danger'"
+                         [message]="errorMessage"
+                         [args]="errorMessageArgs">
       </app-generic-alert>
     </div>
   </div>

@@ -26,7 +26,7 @@ export class GenericFormComponent implements OnInit {
   @Input() maxWidthRem: number = 25;
   @Input() heading: string = '';
   @Input() formGroup!: FormGroup;
-  @Input() fields: Array<FormField> = [];
+  @Input() formFields: Array<FormField> = [];
   @Input() formValidators: ValidatorFn[] = [];
   @Input() submitText: string = 'GENERAL.SUBMIT';
   @Input() successMessage: string = '';
