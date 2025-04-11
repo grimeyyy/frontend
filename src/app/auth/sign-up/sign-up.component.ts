@@ -23,12 +23,13 @@ export class SignUpComponent {
   public signUpForm: FormGroup;
   public signUpFields: Array<FormField> = [];
   public signUpLinks: Array<FormLink> = [];
+  protected readonly passwordMatchValidator = passwordMatchValidator;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     this.signUpForm = this.formBuilder.nonNullable.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
     }, {validators: [passwordMatchValidator]});
 
     this.signUpFields = [
@@ -54,5 +55,5 @@ export class SignUpComponent {
     });
   }
 
-  protected readonly passwordMatchValidator = passwordMatchValidator;
+
 }

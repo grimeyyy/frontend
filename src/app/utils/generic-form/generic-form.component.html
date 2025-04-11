@@ -13,7 +13,8 @@
                 class="form-control form-control-lg"
                 [formControlName]="field.name"
                 [attr.aria-describedby]="field.id + 'Help'"
-                [ngClass]="{ 'is-invalid': formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched }"
+                [ngClass]="{ 'is-invalid': (formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched) ||
+                  ((field.name === 'password' || field.name === 'confirmPassword') && formGroup.errors?.['passwordMismatch']) }"
               />
             </label>
             <div class="invalid-feedback d-inline-block mb-2"
@@ -27,10 +28,14 @@
               <ng-container *ngIf="formGroup.get(field.name)?.errors?.['minlength']">
                 {{ 'ERROR.MINLENGTH' | translate:{requiredLength: formGroup.get(field.name)?.errors?.['minlength'].requiredLength} }}
               </ng-container>
-              <ng-container *ngIf="formGroup.get(field.name)?.errors?.['passwordMismatch']">
-                {{ 'ERROR.PASSWORD_MISMATCH' | translate }}
-              </ng-container>
             </div>
+            <!-- special case password match validator is validating a form and not a single field at once -->
+            <ng-container
+              *ngIf="(field.name === 'password' || field.name === 'confirmPassword') && formGroup.errors?.['passwordMismatch']">
+              <div class="invalid-feedback d-inline-block mb-2">
+                {{ 'ERROR.PASSWORD_MISMATCH' | translate }}
+              </div>
+            </ng-container>
           </ng-container>
 
         </div>

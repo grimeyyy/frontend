@@ -23,6 +23,7 @@ export class ResetPasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
   public resetPasswordFields: Array<FormField> = [];
   public resetPasswordLinks: Array<FormLink> = [];
+  protected readonly passwordMatchValidator = passwordMatchValidator;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,13 +32,13 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router
   ) {
     this.resetPasswordForm = this.formBuilder.nonNullable.group({
-      newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmNewPassword: new FormControl('', Validators.required)
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', Validators.required)
     }, {validators: [passwordMatchValidator]});
 
     this.resetPasswordFields = [
-      {id: 'passwordResetPassword', name: 'newPassword', label: 'New password', type: 'password', translateKey: 'LOGIN_SIGNUP.PASSWORD'},
-      {id: 'confirmPasswordResetPassword', name: 'confirmNewPassword', label: 'Confirm new password', type: 'password', translateKey: 'LOGIN_SIGNUP.CONFIRM_PASSWORD'}
+      {id: 'passwordResetPassword', name: 'password', label: 'New password', type: 'password', translateKey: 'LOGIN_SIGNUP.PASSWORD'},
+      {id: 'confirmPasswordResetPassword', name: 'confirmPassword', label: 'Confirm new password', type: 'password', translateKey: 'LOGIN_SIGNUP.CONFIRM_PASSWORD'}
     ]
 
     this.resetPasswordLinks = [
@@ -69,5 +70,5 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  protected readonly passwordMatchValidator = passwordMatchValidator;
+
 }

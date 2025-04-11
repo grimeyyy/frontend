@@ -41,6 +41,7 @@ export class GenericFormComponent implements OnInit {
     if (this.formValidators.length > 0) {
       const existing = this.formGroup.validator ? [this.formGroup.validator] : [];
       this.formGroup.setValidators([...existing, ...this.formValidators]);
+      this.formGroup.updateValueAndValidity();
     }
   }
 
