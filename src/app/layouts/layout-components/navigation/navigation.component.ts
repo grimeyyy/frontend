@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ThemeService} from '../services/theme.service';
+import {ThemeService} from '../../../services/theme.service';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {NgClass, NgForOf, NgStyle} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navigation',

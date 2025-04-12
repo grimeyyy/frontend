@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService, User } from '../services/users.service';
+import { UserService, User } from '../../services/users.service';
 
 @Component({
   selector: 'app-users',

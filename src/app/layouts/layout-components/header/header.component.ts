@@ -3,7 +3,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {RouterLink} from '@angular/router';
 import EventEmitter from 'node:events';
 import {FormsModule} from '@angular/forms';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 import {NgIf, NgOptimizedImage} from '@angular/common';
 
 @Component({
