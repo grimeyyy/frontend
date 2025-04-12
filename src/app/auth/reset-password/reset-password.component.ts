@@ -6,6 +6,7 @@ import {passwordMatchValidator} from '../../utils/validators/password-match';
 import {FormField} from '../../utils/interfaces/form-field.interface';
 import {FormLink} from '../../utils/interfaces/form-link.interface';
 import {GenericFormComponent} from '../../utils/generic-form/generic-form.component';
+import {BaseAuthComponent} from '../base-auth/base-auth.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -16,32 +17,33 @@ import {GenericFormComponent} from '../../utils/generic-form/generic-form.compon
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent extends BaseAuthComponent implements OnInit {
+  override formGroup: FormGroup;
+  override formFields: FormField[];
+  override formLinks: FormLink[];
+
   private token: string = '';
-  public successMessage: string = '';
-  public errorMessage: string = '';
-  public resetPasswordForm: FormGroup;
-  public resetPasswordFields: Array<FormField> = [];
-  public resetPasswordLinks: Array<FormLink> = [];
   protected readonly passwordMatchValidator = passwordMatchValidator;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router
   ) {
-    this.resetPasswordForm = this.formBuilder.nonNullable.group({
+    super();
+
+    this.formGroup = this.fb.nonNullable.group({
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', Validators.required)
     }, {validators: [passwordMatchValidator]});
 
-    this.resetPasswordFields = [
+    this.formFields = [
       {id: 'passwordResetPassword', name: 'password', label: 'New password', type: 'password', translateKey: 'LOGIN_SIGNUP.PASSWORD'},
       {id: 'confirmPasswordResetPassword', name: 'confirmPassword', label: 'Confirm new password', type: 'password', translateKey: 'LOGIN_SIGNUP.CONFIRM_PASSWORD'}
     ]
 
-    this.resetPasswordLinks = [
+    this.formLinks = [
       {helpText: 'LOGIN_SIGNUP.REMEMBER_PASSWORD', href: "/login", linkText: 'LOGIN_SIGNUP.LOGIN'},
     ]
   }
@@ -54,10 +56,10 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.resetPasswordForm.invalid) return;
+  override onSubmit(): void {
+    if (this.formGroup.invalid) return;
 
-    const newPassword = this.resetPasswordForm.value.newPassword;
+    const newPassword = this.formGroup.value.newPassword;
     this.authService.resetPassword(this.token, newPassword).subscribe({
       next: (response) => {
         this.successMessage = response.message;

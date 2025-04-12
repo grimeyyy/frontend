@@ -5,7 +5,7 @@ import {AuthService} from '../../services/auth.service';
 import {FormField} from '../../utils/interfaces/form-field.interface';
 import {FormLink} from '../../utils/interfaces/form-link.interface';
 import {GenericFormComponent} from '../../utils/generic-form/generic-form.component';
-import {passwordMatchValidator} from '../../utils/validators/password-match';
+import {BaseAuthComponent} from '../base-auth/base-auth.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,29 +17,29 @@ import {passwordMatchValidator} from '../../utils/validators/password-match';
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
-export class ForgotPasswordComponent {
-  public errorMessage: string = '';
-  public successMessage: string = '';
-  public forgotPasswordForm: FormGroup;
-  public forgotPasswordFields: Array<FormField> = [];
-  public forgotPasswordLinks: Array<FormLink> = [];
+export class ForgotPasswordComponent extends BaseAuthComponent {
+  override formGroup: FormGroup;
+  override formFields: FormField[];
+  override formLinks: FormLink[];
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
-    this.forgotPasswordForm = this.formBuilder.nonNullable.group({
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) {
+    super();
+
+    this.formGroup = this.fb.nonNullable.group({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
 
-    this.forgotPasswordFields = [
+    this.formFields = [
       {id: 'emailForgotPassword', name: 'email', label: 'Email', type: 'email', translateKey: 'LOGIN_SIGNUP.EMAIL'},
     ]
 
-    this.forgotPasswordLinks = [
+    this.formLinks = [
       {helpText: 'LOGIN_SIGNUP.REMEMBER_PASSWORD', href: "/login", linkText: 'LOGIN_SIGNUP.LOGIN'},
     ]
   }
 
-  onSubmit() {
-    const email = this.forgotPasswordForm.value.email;
+  override onSubmit() {
+    const email = this.formGroup.value.email;
     this.authService.forgotPassword(email).subscribe({
       next: (response) => {
         this.successMessage = response.message;
@@ -49,5 +49,4 @@ export class ForgotPasswordComponent {
     })
   }
 
-  protected readonly passwordMatchValidator = passwordMatchValidator;
 }
