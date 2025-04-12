@@ -19,6 +19,8 @@
     "ALREADY_SIGNED_UP": "Already signed up?",
     "REMEMBER_PASSWORD": "Remember your password?",
     "EMAIL_VERIFICATION": "Email verification",
+    "CHECK_YOUR_EMAILS": "Check your emails!",
+    "DIDNT_GET_ANY_EMAIL": "Didn't get any email?",
     "RESEND_VERIFICATION_MAIL": "Resend the verification email"
   },
   "NAVIGATION": {
@@ -37,7 +39,7 @@
     "PASSWORD_SUCCESSFULLY_RESET": "Password successfully reset!",
     "PASSWORD_RESET_EMAIL_SENT": "Password reset email sent!",
     "NEW_CONFIRMATION_EMAIL_SENT": "New confirmation email sent!",
-    "USER_REGISTERED_VERIFY_YOUR_EMAIL": "Check your emails!<br/>A verification email has been sent to <strong>{{email}}</strong>.",
+    "USER_REGISTERED_VERIFY_YOUR_EMAIL": "A verification email has been sent to <strong>{{email}}</strong>.",
     "EMAIL_SUCCESSFULLY_VERIFIED": "Your email was successfully verified. You will be redirected to Login page now."
   },
   "ERROR": {

@@ -38,14 +38,14 @@ export class AuthService {
   }
 
   resendVerificationEmail(email: string) {
-     return this.http.post<{ message: string }>('/api/auth/resend-verification?email=' + email,  { });
+    return this.http.post<{ message: string }>('/api/auth/resend-verification', {email});
   }
 
   forgotPassword(email: string) {
-    return this.http.post<{ message: string }>('/api/auth/forgot-password', { email });
+    return this.http.post<{ message: string }>('/api/auth/forgot-password', {email});
   }
 
   resetPassword(token: string, newPassword: string) {
-    return this.http.post<{ message: string }>('/api/auth/reset-password', { token, newPassword });
+    return this.http.post<{ message: string }>('/api/auth/reset-password', {token, newPassword});
   }
 }

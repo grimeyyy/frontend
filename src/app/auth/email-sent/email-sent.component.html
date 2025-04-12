@@ -1,4 +1,15 @@
-<p class="text-center">
-  We've sent a confirmation link to <strong>{{ email }}</strong>.
-  Didn't get any email?
-</p>
+<ng-container *ngIf="email; else noEmailSet">
+  <h1 class="fs-1 text-center mb-4">{{ 'LOGIN_SIGNUP.CHECK_YOUR_EMAILS' | translate}}</h1>
+  <p class="text-center"
+     [innerHTML]="'SUCCESS.USER_REGISTERED_VERIFY_YOUR_EMAIL' | translate: {email}">
+  </p>
+  <p class="text-center">
+    {{ 'LOGIN_SIGNUP.DIDNT_GET_ANY_EMAIL' | translate }}
+    <button type="button" class="btn btn-link text-decoration-none" (click)="resendVerificationEmail()">Resend verification mail</button>
+  </p>
+</ng-container>
+
+<ng-template #noEmailSet>
+  <p class="text-center">You seem to have to business sneaking around here. Back to login you go!</p>
+</ng-template>
+
