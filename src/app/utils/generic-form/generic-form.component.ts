@@ -25,7 +25,7 @@ import {FormField} from '../interfaces/form-field.interface';
 export class GenericFormComponent implements OnInit {
   @Input() maxWidthRem: number = 25;
   @Input() heading: string = '';
-  @Input() formGroup!: FormGroup;
+  @Input() formGroup!: FormGroup; // trust me bro
   @Input() formFields: Array<FormField> = [];
   @Input() formValidators: ValidatorFn[] = [];
   @Input() submitText: string = 'GENERAL.SUBMIT';

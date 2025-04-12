@@ -17,7 +17,6 @@ export class EmailSentComponent implements OnInit {
   email: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) {
-
   }
 
   ngOnInit(): void {
@@ -31,17 +30,18 @@ export class EmailSentComponent implements OnInit {
         emailSet = true;
 
         void this.router.navigate([], {
-          queryParams: { email: null },
+          queryParams: {email: null},
           queryParamsHandling: 'merge',
           replaceUrl: true
         });
-      } else {
-
+      }
+      if (!this.email) {
+        setTimeout(() => this.router.navigate(['/login']), 3000);
       }
     });
   }
 
-  resendVerificationEmail() {
+  resendVerificationEmail(): void {
     this.authService.resendVerificationEmail(this.email).subscribe({
       next: (response) => {
         console.log(response.message);
