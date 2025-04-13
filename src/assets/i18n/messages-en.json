@@ -54,6 +54,7 @@
     "USER_NOT_FOUND": "User not found!",
     "TOKEN_IS_STILL_VALID": "Token is still valid!",
     "EMAIL_ALREADY_IN_CONFIRMED": "Email already confirmed!",
-    "EMAIL_ALREADY_IN_USE": "The email <strong>{{email}}</strong> is already in use!"
+    "EMAIL_ALREADY_IN_USE": "The email <strong>{{email}}</strong> is already in use!",
+    "SESSION_EXPIRED": "Your session has expired due to inactivity. Please login again to continue working."
   }
 }

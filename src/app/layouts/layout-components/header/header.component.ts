@@ -1,7 +1,6 @@
-import {Component, ElementRef, Output, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterLink} from '@angular/router';
-import EventEmitter from 'node:events';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {NgIf, NgOptimizedImage} from '@angular/common';

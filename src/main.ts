@@ -6,13 +6,16 @@ import { AppComponent } from './app/app.component';
 import {TranslateService} from '@ngx-translate/core';
 import {ThemeService} from './app/services/theme.service';
 
-const themeService = new ThemeService();
-themeService.initializeTheme();
-
 bootstrapApplication(AppComponent, appConfig)
   .then(appRef => {
+    // translations service
     const translate = appRef.injector.get(TranslateService);
     translate.setDefaultLang('en');
     translate.use('en');
+
+    // theme service
+    const injector = appRef.injector;
+    const themeService = injector.get(ThemeService);
+    themeService.initializeTheme();
   })
   .catch((err) => console.error(err));

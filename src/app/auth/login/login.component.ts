@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Router, RouterModule} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {FormField} from '../../utils/interfaces/form-field.interface';
@@ -15,14 +15,12 @@ import {BaseAuthComponent} from '../base-auth/base-auth.component';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent extends BaseAuthComponent {
+export class LoginComponent extends BaseAuthComponent implements OnInit {
   override formGroup: FormGroup;
   override formFields: FormField[];
   override formLinks: FormLink[];
 
-  public loggedIn = false;
-
-  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) {
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute) {
     super();
 
     this.formGroup = this.fb.nonNullable.group({
@@ -32,7 +30,13 @@ export class LoginComponent extends BaseAuthComponent {
 
     this.formFields = [
       {id: 'emailLogin', name: 'email', label: 'Email', type: 'email', translateKey: 'LOGIN_SIGNUP.EMAIL'},
-      {id: 'passwordLogin', name: 'password', label: 'Password', type: 'password', translateKey: 'LOGIN_SIGNUP.PASSWORD'}
+      {
+        id: 'passwordLogin',
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+        translateKey: 'LOGIN_SIGNUP.PASSWORD'
+      }
     ];
 
     this.formLinks = [
@@ -43,12 +47,20 @@ export class LoginComponent extends BaseAuthComponent {
 
   override onSubmit() {
     this.authService.login(this.formGroup.value).subscribe({
-      next: (response) => {
-        localStorage.setItem('token', response.token);
+      next: () => {
         void this.router.navigate(['/dashboard']);
-        this.loggedIn = true;
       },
       error: err => this.errorMessage = err.error.message,
     });
   }
+
+  ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      const reason = params.get('reason');
+      if (reason ==='session-expired') {
+        this.errorMessage = 'ERROR.SESSION_EXPIRED';
+      }
+    });
+  }
+
 }

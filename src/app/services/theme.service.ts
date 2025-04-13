@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {WindowRefService} from './window-ref.service';
 
 @Injectable({
   providedIn: 'root',
@@ -6,22 +7,17 @@ import {Injectable} from '@angular/core';
 export class ThemeService {
   private readonly themeStorageKey = 'theme';
 
-  constructor() {
-    if (this.isBrowser()) {
+  constructor(private windowRef: WindowRefService) {
+      if (this.windowRef.nativeWindow) {
       this.setTheme(this.getPreferredTheme());
     }
-
-  }
-
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
   }
 
   /**
    * Get stored theme from localStorage
    */
   private getStoredTheme(): string | null {
-    if (this.isBrowser()) {
+    if (this.windowRef.nativeWindow) {
       return localStorage.getItem(this.themeStorageKey);
     }
     return null;
@@ -31,7 +27,7 @@ export class ThemeService {
    * Set theme in localStorage
    */
   private setStoredTheme(theme: string): void {
-    if (this.isBrowser()) {
+    if (this.windowRef.nativeWindow) {
       localStorage.setItem(this.themeStorageKey, theme);
     }
   }
@@ -118,7 +114,7 @@ export class ThemeService {
    * Initialize theme and listen to system theme changes
    */
   initializeTheme(): void {
-    if (this.isBrowser()) {
+    if (this.windowRef.nativeWindow) {
       this.showActiveTheme(this.getPreferredTheme());
       this.listenToSystemThemeChange();
     }
@@ -128,7 +124,7 @@ export class ThemeService {
    * Toggle theme between light, dark, and auto
    */
   toggleTheme(theme: string): void {
-    if (this.isBrowser()) {
+    if (this.windowRef.nativeWindow) {
       this.setStoredTheme(theme);
       this.setTheme(theme);
       this.showActiveTheme(theme, true)
