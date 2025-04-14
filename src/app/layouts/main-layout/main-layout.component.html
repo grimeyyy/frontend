@@ -1,12 +1,458 @@
-<div class="d-flex">
-  <app-navigation></app-navigation>
-  <div class="flex-grow-1">
-    <app-header></app-header>
-    <main class="p-4 min-vh-100">
-      <div class="container-lg">
-        <router-outlet></router-outlet>
+<!-- Sidenav (toolbar) -->
+<aside class="aside aside-sm sidenav-toolbar d-none d-xl-flex">
+  <nav class="navbar navbar-expand-xl navbar-vertical">
+    <div class="container-fluid">
+      <!-- Nav -->
+      <nav class="navbar-nav nav-pills h-100">
+        <!--        <div class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Go to product page">-->
+        <!--          <a class="nav-link" href="https://themes.getbootstrap.com/product/dashbrd/" target="_blank">-->
+        <!--            <span class="material-symbols-outlined">local_mall</span>-->
+        <!--          </a>-->
+        <!--        </div>-->
+        <div class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Contact us">
+          <a class="nav-link" href="mailto:grimeyyyy@gmail.com">
+            <span class="material-symbols-outlined"><i class="bi bi-envelope-at"></i></span>
+          </a>
+        </div>
+        <div class="nav-item dropend mt-auto">
+          <a role="button" data-bs-toggle="dropdown" data-bs-settings-switcher="" aria-expanded="false">
+            <div class="nav-link">
+              <span class="material-symbols-outlined"><i class="bi bi-gear-fill"></i></span>
+            </div>
+          </a>
+          <div class="dropdown-menu top-auto bottom-0 ms-xl-3">
+            <!-- Color mode -->
+            <h6 class="dropdown-header">{{ 'NAVIGATION.CHOOSE_THEME' | translate }}</h6>
+            <a class="dropdown-item d-flex" (click)="toggleTheme('light')" role="button"
+               [class.active]="currentTheme === 'light'">
+              <span class="material-symbols-outlined me-2"><i class="bi bi-sun-fill"></i></span>
+              {{ 'NAVIGATION.LIGHT_THEME' | translate }}
+            </a>
+            <a class="dropdown-item d-flex" (click)="toggleTheme('dark')" role="button"
+               [class.active]="currentTheme === 'dark'">
+              <span class="material-symbols-outlined me-2"><i class="bi bi-moon-stars-fill"></i></span>
+              {{ 'NAVIGATION.DARK_THEME' | translate }}
+            </a>
+            <a class="dropdown-item d-flex" (click)="toggleTheme('auto')" role="button"
+               [class.active]="currentTheme === 'auto'">
+              <span class="material-symbols-outlined me-2"><i class="bi bi-circle-half"></i></span>
+              {{ 'NAVIGATION.AUTO_THEME' | translate }}
+            </a>
+
+            <!-- Other settings -->
+            <!--            <div class="sidenav-sizing">-->
+            <!--              <hr class="dropdown-divider">-->
+            <!--              <h6 class="dropdown-header">Some other settings here later</h6>-->
+            <!--              <a class="dropdown-item d-flex active" data-bs-sidenav-sizing-value="base" href="#" role="button" aria-pressed="true">-->
+            <!--                <span class="material-symbols-outlined me-2">density_large</span> Base-->
+            <!--              </a>-->
+            <!--              <a class="dropdown-item d-flex" data-bs-sidenav-sizing-value="md" href="#" role="button" aria-pressed="false">-->
+            <!--                <span class="material-symbols-outlined me-2">density_medium</span> Medium-->
+            <!--              </a>-->
+            <!--              <a class="dropdown-item d-flex" data-bs-sidenav-sizing-value="sm" href="#" role="button" aria-pressed="false">-->
+            <!--                <span class="material-symbols-outlined me-2">density_small</span> Small-->
+            <!--              </a>-->
+            <!--            </div>-->
+          </div>
+        </div>
+      </nav>
+    </div>
+  </nav>
+</aside>
+
+<!-- Sidenav (base) -->
+<aside class="aside aside-base sidenav-base">
+  <nav class="navbar navbar-expand-xl navbar-vertical">
+    <div class="container-lg">
+      <!-- Brand -->
+      <a class="navbar-brand d-flex align-items-center fs-5 fw-bold px-xl-3 mb-xl-4" [routerLink]="'/home'">
+        dashbrd
+      </a>
+
+      <!-- User -->
+      <div class="d-flex ms-auto d-xl-none">
+        <div class="dropdown">
+          <ng-container *ngIf="!isLoggedIn; else userInfo">
+            <button routerLink="/login" class="btn btn-link">
+              <i class="bi bi-box-arrow-in-right"></i> {{ 'LOGIN_SIGNUP.LOGIN' | translate }}
+            </button>
+          </ng-container>
+        </div>
+
+        <!-- Divider -->
+        <div class="vr align-self-center bg-dark mx-2"></div>
+
+        <!-- Notifications -->
+        <div class="dropdown ">
+          <button class="btn btn-link" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                  aria-expanded="false">
+            <span class="material-symbols-outlined scale-125"><i class="bi bi-bell-fill"></i></span>
+            <span class="position-absolute top-0 end-0 m-3 p-1 bg-warning rounded-circle">
+                  <span class="visually-hidden">New notifications</span>
+                </span>
+          </button>
+          <!--          <div class="dropdown-menu dropdown-menu-end" style="width: 350px">-->
+          <!--            &lt;!&ndash; Header &ndash;&gt;-->
+          <!--            <div class="row">-->
+          <!--              <div class="col">-->
+          <!--                <h6 class="dropdown-header me-auto">Notifications</h6>-->
+          <!--              </div>-->
+          <!--              <div class="col-auto">-->
+          <!--                <button class="btn btn-sm btn-link" type="button"><span class="material-symbols-outlined me-1">done_all</span> Mark all as read</button>-->
+          <!--                <button class="btn btn-sm btn-link" type="button"><span class="material-symbols-outlined">settings</span></button>-->
+          <!--              </div>-->
+          <!--            </div>-->
+
+          <!--            &lt;!&ndash; Items &ndash;&gt;-->
+          <!--            <div class="list-group list-group-flush px-4">-->
+          <!--              <div class="list-group-item border-style-dashed px-0">-->
+          <!--                <div class="row gx-3">-->
+          <!--                  <div class="col-auto">-->
+          <!--                    <div class="avatar avatar-sm">-->
+          <!--                      <img class="avatar-img" src="./assets/img/photos/photo-1.jpg" alt="..." />-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <div class="col">-->
+          <!--                    <p class="text-body mb-2">-->
+          <!--                      <span class="fw-semibold">Emily T.</span> commented on your post <br /><small class="text-body-secondary">5 minutes ago</small>-->
+          <!--                    </p>-->
+          <!--                    <div class="card">-->
+          <!--                      <div class="card-body p-3">Love the new dashboard layout! Super clean and easy to navigate 🔥</div>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="list-group-item border-style-dashed px-0">-->
+          <!--                <div class="row gx-3">-->
+          <!--                  <div class="col-auto">-->
+          <!--                    <div class="avatar avatar-sm">-->
+          <!--                      <img class="avatar-img" src="./assets/img/photos/photo-2.jpg" alt="..." />-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <div class="col">-->
+          <!--                    <p class="text-body mb-2">-->
+          <!--                      <span class="fw-semibold">Michael J.</span> requested changes on your post <br />-->
+          <!--                      <small class="text-body-secondary">10 minutes ago</small>-->
+          <!--                    </p>-->
+          <!--                    <div class="card">-->
+          <!--                      <div class="card-body p-3">-->
+          <!--                        <p class="mb-2">Could you update the revenue chart with the latest data? Thanks!</p>-->
+          <!--                        <p class="mb-0">-->
+          <!--                          <button class="btn btn-sm btn-light" type="button">Update now</button>-->
+          <!--                          <button class="btn btn-sm btn-link">Dismiss</button>-->
+          <!--                        </p>-->
+          <!--                      </div>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="list-group-item border-style-dashed px-0">-->
+          <!--                <div class="row gx-3 align-items-center">-->
+          <!--                  <div class="col-auto">-->
+          <!--                    <div class="avatar">-->
+          <!--                      <span class="material-symbols-outlined">error</span>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <div class="col">-->
+          <!--                    <p class="text-body mb-0">-->
+          <!--                      <span class="fw-semibold">System alert</span> - Build failed <br />-->
+          <!--                      <small class="text-body-secondary">1 hour ago</small>-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
       </div>
 
-    </main>
+      <!-- Toggler -->
+      <button
+        class="navbar-toggler ms-3"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidenavBaseCollapse"
+        aria-controls="sidenavBaseCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenavBaseCollapse">
+        <!-- Search -->
+        <div class="input-group d-xl-none my-4 my-xl-0">
+          <input class="form-control" type="search" [placeholder]="'GENERAL.SEARCH' | translate" aria-label="Search"
+                 aria-describedby="sidenavBaseSearchMobile"/>
+          <span class="input-group-text" id="sidenavBaseSearchMobile">
+                <span class="material-symbols-outlined"><i class="bi bi-search"></i></span>
+              </span>
+        </div>
+
+        <!-- Nav -->
+        <nav class="navbar-nav nav-pills mb-7">
+          <ng-container *ngFor="let item of visibleItems; let i = index">
+            <div class="nav-item" *ngIf="!item.children">
+              <a class="nav-link" role="button"
+                 [routerLink]="item.path"
+                 routerLinkActive="active">
+                <i class="bi me-3" [ngClass]="item.icon"></i>
+                {{ item.label | translate }}
+              </a>
+            </div>
+
+            <div class="nav-item" *ngIf="item.children">
+              <a class="nav-link"
+                 role="button"
+                 data-bs-toggle="collapse"
+                 routerLinkActive="active"
+                 [routerLinkActiveOptions]="{ exact: false }"
+                 [attr.data-bs-target]="'#collapse' + i"
+                 [attr.aria-controls]="'collapse' + i"
+                 [attr.aria-expanded]="isGroupActive(item.children)">
+                <i class="bi me-3" [ngClass]="item.icon"></i>
+                {{ item.label | translate }}
+              </a>
+
+              <div class="collapse" [attr.id]="'collapse' + i" [ngClass]="{'show': isGroupActive(item.children)}">
+                <nav class="nav nav-pills">
+                  <a class="nav-link"
+                     *ngFor="let child of item.children"
+                     [routerLink]="child.path"
+                     routerLinkActive="active"
+                     [routerLinkActiveOptions]="{ exact: true }">
+                    {{ child.label | translate }}
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </ng-container>
+        </nav>
+
+
+        <!-- Heading -->
+        <h3 class="fs-base px-3 mb-4">Documentation</h3>
+
+        <!-- Nav -->
+        <nav class="navbar-nav nav-pills mb-xl-7">
+          <div class="nav-item">
+            <a class="nav-link " href="./docs/getting-started.html">
+              <span class="material-symbols-outlined me-3">sticky_note_2</span> Getting started
+            </a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link " href="./docs/changelog.html">
+              <span class="material-symbols-outlined me-3">list_alt</span> Changelog
+              <span class="badge text-bg-primary ms-auto">1.0.6</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Divider -->
+        <hr class="my-4 d-xl-none"/>
+
+        <!-- Nav -->
+        <nav class="navbar-nav nav-pills d-xl-none mb-7">
+          <div class="nav-item">
+            <a class="nav-link" href="mailto:yevgenysim+simpleqode@gmail.com">
+              <span class="material-symbols-outlined me-3">alternate_email</span> Contact us
+            </a>
+          </div>
+          <div class="nav-item dropdown">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" data-bs-settings-switcher
+               aria-expanded="false">
+              <span class="material-symbols-outlined me-3"> settings </span> Settings
+            </a>
+            <div class="dropdown-menu ">
+              <!-- Color mode -->
+              <h6 class="dropdown-header">Color mode</h6>
+              <a class="dropdown-item d-flex" data-bs-theme-value="light" href="#" role="button"> <span
+                class="material-symbols-outlined me-2">light_mode</span> Light </a>
+              <a class="dropdown-item d-flex" data-bs-theme-value="dark" href="#" role="button"> <span
+                class="material-symbols-outlined me-2">dark_mode</span> Dark </a>
+              <a class="dropdown-item d-flex" data-bs-theme-value="auto" href="#" role="button"> <span
+                class="material-symbols-outlined me-2">contrast</span> Auto </a>
+
+              <!-- Sidenav sizing -->
+              <div class="sidenav-sizing">
+                <hr class="dropdown-divider"/>
+                <h6 class="dropdown-header">Sidenav sizing</h6>
+                <a class="dropdown-item d-flex" data-bs-sidenav-sizing-value="base" href="#" role="button">
+                  <span class="material-symbols-outlined me-2">density_large</span> Base
+                </a>
+                <a class="dropdown-item d-flex" data-bs-sidenav-sizing-value="md" href="#" role="button">
+                  <span class="material-symbols-outlined me-2">density_medium</span> Medium
+                </a>
+                <a class="dropdown-item d-flex" data-bs-sidenav-sizing-value="sm" href="#" role="button">
+                  <span class="material-symbols-outlined me-2">density_small</span> Small
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Card -->
+        <div class="card mt-auto">
+          <div class="card-body">
+            <!-- Heading -->
+            <h6>Need help?</h6>
+
+            <!-- Text -->
+            <p class="text-body-secondary mb-0">Feel free to reach out to us should you have any questions or
+              suggestions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<!-- Topnav (toolbar) -->
+<nav class="navbar topnav-toolbar d-none d-xl-flex px-xl-6">
+  <div class="container flex-column align-items-stretch">
+    <div class="row">
+      <div class="col">
+        <!-- Search -->
+        <div class="input-group" style="max-width: 400px">
+          <input class="form-control" id="topnavSearchInput" type="search" [placeholder]="'GENERAL.SEARCH' | translate"
+                 aria-label="Search" aria-describedby="navbarSearch"/>
+          <span class="input-group-text" id="navbarSearch">
+                <kbd class="badge bg-body-secondary text-body">⌘</kbd>
+                <kbd class="badge bg-body-secondary text-body ms-1">K</kbd>
+              </span>
+        </div>
+      </div>
+      <div class="col-auto d-flex">
+        <!-- User -->
+        <ng-container *ngIf="!isLoggedIn; else userInfo">
+          <button routerLink="/login" class="text-body btn btn-link text-decoration-none">
+            <i class="bi bi-box-arrow-in-right"></i> {{ 'LOGIN_SIGNUP.LOGIN' | translate }}
+          </button>
+        </ng-container>
+
+        <ng-template #userInfo>
+          <div class="dropdown my-n2">
+            <a class="btn btn-link d-inline-flex align-items-center dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="avatar avatar-sm avatar-status avatar-status-success me-3">
+                  <img [ngSrc]="userAvatarUrl" alt="Avatar" fill>
+                </span>
+              <span class="d-none d-xl-block">Jolly Roger</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" [routerLink]="'/account'">
+                  <i class="bi bi-person"></i> {{ 'NAVIGATION.ACCOUNT' | translate }}
+                </a>
+              </li>
+              <li><a class="dropdown-item" href="#">Change password</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <button type="button" class="btn btn-link dropdown-item text-danger" (click)="logout()">
+                  <i class="bi bi-box-arrow-right"></i> {{ 'NAVIGATION.SIGN_OUT' | translate }}
+                </button>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+
+        <!-- Divider -->
+        <div class="vr align-self-center bg-dark mx-2"></div>
+
+        <!-- Notifications -->
+        <div class="dropdown ">
+          <button class="btn btn-link" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                  aria-expanded="false">
+            <span class="material-symbols-outlined scale-125"><i class="bi bi-bell-fill"></i></span>
+            <span class="position-absolute top-0 end-0 m-3 p-1 bg-warning rounded-circle">
+                  <span class="visually-hidden">New notifications</span>
+                </span>
+          </button>
+          <!--          <div class="dropdown-menu dropdown-menu-end" style="width: 350px">-->
+          <!--            &lt;!&ndash; Header &ndash;&gt;-->
+          <!--            <div class="row">-->
+          <!--              <div class="col">-->
+          <!--                <h6 class="dropdown-header me-auto">Notifications</h6>-->
+          <!--              </div>-->
+          <!--              <div class="col-auto">-->
+          <!--                <button class="btn btn-sm btn-link" type="button"><span class="material-symbols-outlined me-1">done_all</span> Mark all as read</button>-->
+          <!--                <button class="btn btn-sm btn-link" type="button"><span class="material-symbols-outlined">settings</span></button>-->
+          <!--              </div>-->
+          <!--            </div>-->
+
+          <!--            &lt;!&ndash; Items &ndash;&gt;-->
+          <!--            <div class="list-group list-group-flush px-4">-->
+          <!--              <div class="list-group-item border-style-dashed px-0">-->
+          <!--                <div class="row gx-3">-->
+          <!--                  <div class="col-auto">-->
+          <!--                    <div class="avatar avatar-sm">-->
+          <!--                      <img class="avatar-img" src="./assets/img/photos/photo-1.jpg" alt="..." />-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <div class="col">-->
+          <!--                    <p class="text-body mb-2">-->
+          <!--                      <span class="fw-semibold">Emily T.</span> commented on your post <br /><small class="text-body-secondary">5 minutes ago</small>-->
+          <!--                    </p>-->
+          <!--                    <div class="card">-->
+          <!--                      <div class="card-body p-3">Love the new dashboard layout! Super clean and easy to navigate 🔥</div>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="list-group-item border-style-dashed px-0">-->
+          <!--                <div class="row gx-3">-->
+          <!--                  <div class="col-auto">-->
+          <!--                    <div class="avatar avatar-sm">-->
+          <!--                      <img class="avatar-img" src="./assets/img/photos/photo-2.jpg" alt="..." />-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <div class="col">-->
+          <!--                    <p class="text-body mb-2">-->
+          <!--                      <span class="fw-semibold">Michael J.</span> requested changes on your post <br />-->
+          <!--                      <small class="text-body-secondary">10 minutes ago</small>-->
+          <!--                    </p>-->
+          <!--                    <div class="card">-->
+          <!--                      <div class="card-body p-3">-->
+          <!--                        <p class="mb-2">Could you update the revenue chart with the latest data? Thanks!</p>-->
+          <!--                        <p class="mb-0">-->
+          <!--                          <button class="btn btn-sm btn-light" type="button">Update now</button>-->
+          <!--                          <button class="btn btn-sm btn-link">Dismiss</button>-->
+          <!--                        </p>-->
+          <!--                      </div>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="list-group-item border-style-dashed px-0">-->
+          <!--                <div class="row gx-3 align-items-center">-->
+          <!--                  <div class="col-auto">-->
+          <!--                    <div class="avatar">-->
+          <!--                      <span class="material-symbols-outlined">error</span>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <div class="col">-->
+          <!--                    <p class="text-body mb-0">-->
+          <!--                      <span class="fw-semibold">System alert</span> - Build failed <br />-->
+          <!--                      <small class="text-body-secondary">1 hour ago</small>-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</nav>
+
+<!-- Content -->
+<main class="main px-lg-6">
+  <div class="container-lg">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+

@@ -1,18 +1,114 @@
-import { Component } from '@angular/core';
-import {HeaderComponent} from '../layout-components/header/header.component';
-import {NavigationComponent} from '../layout-components/navigation/navigation.component';
-import {RouterOutlet} from '@angular/router';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
+import {AuthService} from '../../services/auth.service';
+import {ThemeService} from '../../services/theme.service';
+
+interface NavigationItem {
+  label: string;
+  path?: string;
+  icon: string;
+  authRequired?: boolean;
+  children?: NavigationItem[];
+}
 
 @Component({
   selector: 'app-main-layout',
   imports: [
-    HeaderComponent,
-    NavigationComponent,
-    RouterOutlet
+    RouterOutlet,
+    NgIf,
+    NgOptimizedImage,
+    RouterLink,
+    RouterLinkActive,
+    TranslatePipe,
+    NgClass,
+    NgForOf,
+
   ],
   templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss'
+  styleUrl: './main-layout.component.scss',
+  encapsulation: ViewEncapsulation.Emulated
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit {
+  currentTheme: string = 'auto';
+  userAvatarUrl: string = 'assets/img/avatar-dummy.png';
+  currentRoute: string = '';
+
+  navigationItems: NavigationItem[] = [
+    {
+      path: '/home',
+      icon: 'bi-house-fill',
+      label: 'NAVIGATION.HOME'
+    },
+    {
+      icon: 'bi-speedometer2',
+      label: 'Dashboards',
+      children: [
+        { path: '/dashboard/default', icon: '', label: 'Default' },
+        { path: '/dashboard/crypto', icon: '', label: 'Crypto', authRequired: true },
+        { path: '/dashboard/saas', icon: '', label: 'SaaS' }
+      ]
+    },
+    {
+      icon: 'bi-people',
+      label: 'Customers',
+      children: [
+        { path: '/customers/list', icon: '', label: 'Customers' },
+        { path: '/customers/detail', icon: '', label: 'Customer details' },
+        { path: '/customers/new', icon: '', label: 'New customer' }
+      ]
+    }
+  ];
+
+  constructor(private authService: AuthService, private themeService: ThemeService, private router: Router) {
+
+  }
+
+  ngOnInit(): void {
+    this.themeService.initializeTheme();
+    this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+  }
+
+  toggleTheme(theme: string): void {
+    this.themeService.toggleTheme(theme);
+  }
+
+  get visibleItems(): NavigationItem[] {
+    const isLoggedIn = this.authService.isAuthenticated();
+
+    return this.navigationItems
+      .filter(item => {
+        if (item.authRequired && !isLoggedIn) {
+          return false;
+        }
+        if (item.children) {
+          item.children = item.children.filter(child => {
+            return !child.authRequired || isLoggedIn;
+          });
+          if (item.children.length === 0 && !item.path) {
+            return false;
+          }
+        }
+        return true;
+      });
+  }
+
+  get isLoggedIn() {
+    return this.authService.isAuthenticated();
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  isGroupActive(children: NavigationItem[]): boolean {
+    return children.some(child => this.currentRoute.startsWith(child.path || ''));
+  }
 
 }

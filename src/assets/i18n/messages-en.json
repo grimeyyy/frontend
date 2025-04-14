@@ -30,7 +30,10 @@
     "CHOOSE_THEME": "Choose theme",
     "LIGHT_THEME": "Light",
     "DARK_THEME": "Dark",
-    "AUTO_THEME": "Auto"
+    "AUTO_THEME": "Auto",
+    "SIGN_OUT": "Sign out",
+    "ACCOUNT": "Account",
+    "PROFILE": "Profile"
   },
   "VALIDATION": {
     "PASSWORD_MISMATCH": "Passwords dont match!"

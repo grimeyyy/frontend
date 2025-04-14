@@ -1,15 +1,24 @@
 import {Injectable} from '@angular/core';
 import {WindowRefService} from './window-ref.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
   private readonly themeStorageKey = 'theme';
+  private readonly window: Window | null;
+
+  private currentThemeSubject = new BehaviorSubject<string>(this.getPreferredTheme());
+  public currentTheme$ = this.currentThemeSubject.asObservable();
 
   constructor(private windowRef: WindowRefService) {
-      if (this.windowRef.nativeWindow) {
-      this.setTheme(this.getPreferredTheme());
+    this.window = this.windowRef.nativeWindow;
+
+    if (this.window) {
+      const initialTheme = this.getPreferredTheme();
+      this.setTheme(initialTheme);
+      this.currentThemeSubject.next(initialTheme);
     }
   }
 
@@ -17,7 +26,7 @@ export class ThemeService {
    * Get stored theme from localStorage
    */
   private getStoredTheme(): string | null {
-    if (this.windowRef.nativeWindow) {
+    if (this.window) {
       return localStorage.getItem(this.themeStorageKey);
     }
     return null;
@@ -27,7 +36,7 @@ export class ThemeService {
    * Set theme in localStorage
    */
   private setStoredTheme(theme: string): void {
-    if (this.windowRef.nativeWindow) {
+    if (this.window) {
       localStorage.setItem(this.themeStorageKey, theme);
     }
   }
@@ -41,7 +50,7 @@ export class ThemeService {
       return storedTheme;
     }
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return this.window?.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
   /**
@@ -102,7 +111,7 @@ export class ThemeService {
    * Event listener for system theme changes and update theme accordingly
    */
   listenToSystemThemeChange(): void {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    this.window?.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
       const storedTheme = this.getStoredTheme();
       if (storedTheme !== 'light' && storedTheme !== 'dark') {
         this.setTheme(this.getPreferredTheme());
@@ -114,7 +123,7 @@ export class ThemeService {
    * Initialize theme and listen to system theme changes
    */
   initializeTheme(): void {
-    if (this.windowRef.nativeWindow) {
+    if (this.window) {
       this.showActiveTheme(this.getPreferredTheme());
       this.listenToSystemThemeChange();
     }
@@ -124,10 +133,11 @@ export class ThemeService {
    * Toggle theme between light, dark, and auto
    */
   toggleTheme(theme: string): void {
-    if (this.windowRef.nativeWindow) {
+    if (this.window) {
       this.setStoredTheme(theme);
       this.setTheme(theme);
       this.showActiveTheme(theme, true)
+      this.currentThemeSubject.next(theme);
     }
   }
 }

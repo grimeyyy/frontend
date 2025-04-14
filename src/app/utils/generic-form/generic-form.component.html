@@ -6,11 +6,11 @@
         <div class="mb-4">
           <ng-container *ngFor="let field of formFields">
             <label [for]="field.name" class="form-label w-100">
-              {{ field.translateKey ? (field.translateKey | translate) : field.label }}
               <input
                 [id]="field.id"
                 [type]="field.type"
                 class="form-control form-control-lg"
+                [placeholder]="field.translateKey ? (field.translateKey | translate) : field.label"
                 [formControlName]="field.name"
                 [attr.aria-describedby]="field.id + 'Help'"
                 [ngClass]="{ 'is-invalid': (formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched) ||

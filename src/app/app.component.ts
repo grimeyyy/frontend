@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {IdleService} from './services/idle.service';
+import {WindowRefService} from './services/window-ref.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,20 @@ import {IdleService} from './services/idle.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  constructor(private idleService: IdleService) {
+export class AppComponent implements OnInit {
+  window: Window | null;
+
+  constructor(private idleService: IdleService, private renderer: Renderer2, private windowRef: WindowRefService) {
+    this.window = windowRef.nativeWindow;
+  }
+
+  ngOnInit(): void {
+    if (this.window) {
+      const script = this.renderer.createElement('script');
+      script.src = 'assets/theme/js/theme.bundle.js';
+      script.type = 'text/javascript';
+      script.defer = true;
+      this.renderer.appendChild(document.body, script);
+    }
   }
 }

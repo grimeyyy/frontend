@@ -57,7 +57,7 @@ export class LoginComponent extends BaseAuthComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
       const reason = params.get('reason');
-      if (reason ==='session-expired') {
+      if (reason === 'session-expired') {
         this.errorMessage = 'ERROR.SESSION_EXPIRED';
       }
     });
