@@ -48,7 +48,7 @@ export class LoginComponent extends BaseAuthComponent implements OnInit {
   override onSubmit() {
     this.authService.login(this.formGroup.value).subscribe({
       next: () => {
-        void this.router.navigate(['/dashboard']);
+        void this.router.navigate(['/dashboards/default']);
       },
       error: err => this.errorMessage = err.error.message,
     });

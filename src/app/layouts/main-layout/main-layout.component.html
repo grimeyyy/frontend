@@ -206,8 +206,7 @@
               <a class="nav-link"
                  role="button"
                  data-bs-toggle="collapse"
-                 routerLinkActive="active"
-                 [routerLinkActiveOptions]="{ exact: false }"
+                 [ngClass]="{ 'active': isGroupActive(item.children) }"
                  [attr.data-bs-target]="'#collapse' + i"
                  [attr.aria-controls]="'collapse' + i"
                  [attr.aria-expanded]="isGroupActive(item.children)">
