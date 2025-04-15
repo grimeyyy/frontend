@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {BehaviorSubject, Observable, of, tap} from 'rxjs';
 import {Router} from '@angular/router';
+import {catchError, switchMap} from 'rxjs/operators';
 
 interface AuthRequest {
   email: string;
@@ -14,10 +15,27 @@ interface AuthRequest {
 export class AuthService {
   private loggedInSubject: BehaviorSubject<boolean>;
   public loggedIn$: Observable<boolean>;
+  public refreshTokenInProgress = false;
+  public refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient, private router: Router) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
     this.loggedIn$ = this.loggedInSubject.asObservable();
+  }
+
+  getAuthToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  refreshAccessToken(): Observable<boolean> {
+    return this.http.post<any>('/api/auth/refresh', {}).pipe(
+      switchMap((response) => {
+        const newToken = response.token;
+        localStorage.setItem('token', newToken);
+        return of(true);
+      }),
+      catchError(() => of(false))
+    );
   }
 
   login(loginData: AuthRequest): Observable<{ token: string }> {

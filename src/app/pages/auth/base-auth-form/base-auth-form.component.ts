@@ -30,9 +30,9 @@ export class BaseAuthFormComponent implements OnInit {
   @Input() formValidators: ValidatorFn[] = [];
   @Input() submitText: string = 'GENERAL.SUBMIT';
   @Input() successMessage: string = '';
-  @Input() successMessageArgs: {[p:string]: string} = {};
+  @Input() successMessageArgs: { [p: string]: string } = {};
   @Input() errorMessage: string = '';
-  @Input() errorMessageArgs: {[p:string]: string} = {};
+  @Input() errorMessageArgs: { [p: string]: string } = {};
   @Input() formLinks: Array<FormLink> = [];
 
   @Output() submitForm = new EventEmitter<void>();
@@ -52,4 +52,5 @@ export class BaseAuthFormComponent implements OnInit {
       this.formGroup.markAllAsTouched();
     }
   }
+
 }
