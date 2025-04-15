@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
-import {AuthService} from '../../services/auth.service';
-import {ThemeService} from '../../services/theme.service';
+import {AuthService} from '../../shared/services/auth.service';
+import {ThemeService} from '../../shared/services/theme.service';
+import {filter} from 'rxjs';
 
 interface NavigationItem {
   label: string;
@@ -70,6 +71,12 @@ export class MainLayoutComponent implements OnInit {
     this.themeService.currentTheme$.subscribe(theme => {
       this.currentTheme = theme;
     });
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentRoute = event.urlAfterRedirects;
+      });
     this.currentRoute = this.router.url;
   }
 
@@ -106,7 +113,10 @@ export class MainLayoutComponent implements OnInit {
   }
 
   isGroupActive(children: NavigationItem[]): boolean {
-    return children.some(child => !!child.path && this.currentRoute.startsWith(child.path));
+    if (!this.currentRoute) return false;
+    return children.some(child =>
+      !!child.path && this.currentRoute.startsWith(child.path)
+    );
   }
 
 }

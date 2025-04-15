@@ -1,7 +1,7 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {IdleService} from './services/idle.service';
-import {WindowRefService} from './services/window-ref.service';
+import {IdleService} from './shared/services/idle.service';
+import {WindowRefService} from './shared/services/window-ref.service';
 
 @Component({
   selector: 'app-root',

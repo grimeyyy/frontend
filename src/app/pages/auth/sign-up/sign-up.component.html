@@ -1,0 +1,13 @@
+<app-base-auth-form
+  [heading]="'LOGIN_SIGNUP.SIGNUP'"
+  [formGroup]="formGroup"
+  [formFields]="formFields"
+  [submitText]="'LOGIN_SIGNUP.SIGNUP'"
+  [formValidators]="[passwordMatchValidator]"
+  [errorMessage]="errorMessage"
+  [errorMessageArgs]="{email}"
+  [successMessage]="successMessage"
+  [successMessageArgs]="{email}"
+  [formLinks]="formLinks"
+  (submitForm)="onSubmit()">
+</app-base-auth-form>

@@ -16,9 +16,14 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'account',
-        loadComponent: () => import('./pages/account/account.component').then(m => m.AccountComponent),
-        canActivate: [AuthGuard]
+        path: 'account/overview',
+        loadComponent: () =>
+          import('./pages/account/account-overview/account-overview.component').then(m => m.AccountOverviewComponent)
+      },
+      {
+        path: 'account/settings',
+        loadComponent: () =>
+          import('./pages/account/account-settings/account-settings.component').then(m => m.AccountSettingsComponent)
       }
     ]
   },
@@ -26,21 +31,23 @@ export const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      {path: 'login', loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent)},
-      {path: 'sign-up', loadComponent: () => import('./auth/sign-up/sign-up.component').then(m => m.SignUpComponent)},
+      {path: 'login', loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent)},
+      {path: 'sign-up', loadComponent: () => import('./pages/auth/sign-up/sign-up.component').then(m => m.SignUpComponent)},
       {
         path: 'forgot-password',
-        loadComponent: () => import('./auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+        loadComponent: () => import('./pages/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
       },
       {
         path: 'reset-password',
-        loadComponent: () => import('./auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+        loadComponent: () => import('./pages/auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
       },
       {
-        path: 'email-sent', loadComponent: () => import('./auth/email-sent/email-sent.component').then(m => m.EmailSentComponent)
+        path: 'email-sent',
+        loadComponent: () => import('./pages/auth/email-sent/email-sent.component').then(m => m.EmailSentComponent)
       },
       {
-        path: 'verify-email', loadComponent: () => import('./auth/verify-email/verify-email.component').then(m => m.VerifyEmailComponent)
+        path: 'verify-email',
+        loadComponent: () => import('./pages/auth/verify-email/verify-email.component').then(m => m.VerifyEmailComponent)
       }
     ]
   },
