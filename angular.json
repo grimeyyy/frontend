@@ -82,8 +82,8 @@
           },
           "defaultConfiguration": "development",
           "options": {
-      			"proxyConfig": "proxy.conf.json"
-    		}
+            "proxyConfig": "proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
@@ -109,6 +109,17 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "frontend:serve:production"
+            }
           }
         }
       }
