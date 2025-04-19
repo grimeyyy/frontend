@@ -28,8 +28,7 @@ export class AuthService {
   }
 
   refreshAccessToken(): Observable<boolean> {
-    const refreshToken = localStorage.getItem('refreshToken');
-    return this.http.post<any>('/api/auth/refresh', { refreshToken }).pipe(
+    return this.http.post<any>('/api/auth/refresh', {}, { withCredentials: true }).pipe(
       switchMap((response) => {
         const newToken = response.token;
         localStorage.setItem('token', newToken);
@@ -49,9 +48,13 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.loggedInSubject.next(false);
-    void this.router.navigate(['/home']);
+    this.http.post('/api/auth/logout', {}, { withCredentials: true }).subscribe({
+      complete: () => {
+        localStorage.removeItem('token');
+        this.loggedInSubject.next(false);
+        void this.router.navigate(['/home']);
+      }
+    });
   }
 
   private hasToken(): boolean {
