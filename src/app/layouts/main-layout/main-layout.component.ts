@@ -110,6 +110,7 @@ export class MainLayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    void this.router.navigate(['/home']);
   }
 
   isGroupActive(children: NavigationItem[]): boolean {

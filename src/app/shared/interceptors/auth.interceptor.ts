@@ -1,12 +1,17 @@
 import {inject} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http';
-import {Observable, retry, throwError} from 'rxjs';
-import {catchError, delay, filter, finalize, scan, switchMap, take} from 'rxjs/operators';
+import {Observable, retry, throwError, timer} from 'rxjs';
+import {catchError, filter, finalize, switchMap, take} from 'rxjs/operators';
 import {AuthService} from '../services/auth.service';
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
   const authService = inject(AuthService);
   const token = authService.getAuthToken();
+
+  const isAuthRequest = req.url.includes('/auth/login') || req.url.includes('/auth/refresh');
+  if (isAuthRequest) {
+    return next(req); // Skip token logic for login/refresh
+  }
 
   let modifiedReq = req;
 
@@ -19,23 +24,17 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
 
   return next(modifiedReq).pipe(
     retry({
-        delay: (errors: Observable<HttpErrorResponse>) =>
-          errors.pipe(
-            scan((retryCount, error) => {
-              if (retryCount >= 2 || error.status === 401) {
-                throw error;
-              }
-              return retryCount + 1;
-            }, 0),
-            delay(1000)
-          )
+      count: 2,
+      delay: (error: HttpErrorResponse, _retryCount: number) => {
+        if (error.status === 0) {
+          return timer(1000);
+        }
+        return throwError(() => error);
       }
-    ),
+    }),
     catchError((error: HttpErrorResponse) => {
       if (error && error.status === 401) {
-        // Token might be expired, let's refresh it.
         if (authService.refreshTokenInProgress) {
-          // If the token refresh is in progress, wait until we get a new token
           return authService.refreshTokenSubject.pipe(
             filter((result) => result !== null),
             take(1),
@@ -43,8 +42,6 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
           );
         } else {
           authService.refreshTokenInProgress = true;
-
-          // Set the refreshTokenSubject to null so that subsequent requests wait for the new token
           authService.refreshTokenSubject.next(null);
 
           return authService.refreshAccessToken().pipe(

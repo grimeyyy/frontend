@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   login(loginData: AuthRequest): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('api/auth/login', loginData).pipe(
+    return this.http.post<{ token: string }>('api/auth/login', loginData, { withCredentials: true }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
         this.loggedInSubject.next(true);
@@ -52,7 +52,6 @@ export class AuthService {
       complete: () => {
         localStorage.removeItem('token');
         this.loggedInSubject.next(false);
-        void this.router.navigate(['/home']);
       }
     });
   }
