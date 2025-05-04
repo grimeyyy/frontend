@@ -9,21 +9,21 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: 'home', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)},
+      {path: 'home', loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)},
       {
         path: 'dashboards/default',
-        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
         canActivate: [AuthGuard]
       },
       {
         path: 'account/overview',
         loadComponent: () =>
-          import('./pages/account/account-overview/account-overview.component').then(m => m.AccountOverviewComponent)
+          import('./features/account/account-overview/account-overview.component').then(m => m.AccountOverviewComponent)
       },
       {
         path: 'account/settings',
         loadComponent: () =>
-          import('./pages/account/account-settings/account-settings.component').then(m => m.AccountSettingsComponent)
+          import('./features/account/account-settings/account-settings.component').then(m => m.AccountSettingsComponent)
       }
     ]
   },
@@ -31,23 +31,23 @@ export const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      {path: 'login', loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent)},
-      {path: 'sign-up', loadComponent: () => import('./pages/auth/sign-up/sign-up.component').then(m => m.SignUpComponent)},
+      {path: 'login', loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)},
+      {path: 'sign-up', loadComponent: () => import('./features/auth/sign-up/sign-up.component').then(m => m.SignUpComponent)},
       {
         path: 'forgot-password',
-        loadComponent: () => import('./pages/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+        loadComponent: () => import('./features/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
       },
       {
         path: 'reset-password',
-        loadComponent: () => import('./pages/auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+        loadComponent: () => import('./features/auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
       },
       {
         path: 'email-sent',
-        loadComponent: () => import('./pages/auth/email-sent/email-sent.component').then(m => m.EmailSentComponent)
+        loadComponent: () => import('./features/auth/email-sent/email-sent.component').then(m => m.EmailSentComponent)
       },
       {
         path: 'verify-email',
-        loadComponent: () => import('./pages/auth/verify-email/verify-email.component').then(m => m.VerifyEmailComponent)
+        loadComponent: () => import('./features/auth/verify-email/verify-email.component').then(m => m.VerifyEmailComponent)
       }
     ]
   },
